@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 
 /** 
@@ -72,6 +73,8 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
 
     @Override
     public ReturnResult beforeCheckin() {
+        String basePath = myProject.getBasePath();
+        String filePath = basePath+"/check.commit.style.rule.json";
         PropertiesComponent prop = PropertiesComponent.getInstance();
         String path = prop.getValue(Settings.PATH);
         String sCommitMessage = myCheckinPanel.getCommitMessage();
@@ -79,7 +82,9 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
             return ReturnResult.COMMIT;
         }else {
             try {
-                if (path!=null&&path.endsWith("json")){
+                if (new File(filePath).exists()){
+                    new RuleCheckApp(filePath).check(sCommitMessage);
+                }else if (path!=null&&path.endsWith("json")&&new File(filePath).exists()){
                     new RuleCheckApp(path).check(sCommitMessage);
                 }else{
                     new RuleCheckApp().check(sCommitMessage);
