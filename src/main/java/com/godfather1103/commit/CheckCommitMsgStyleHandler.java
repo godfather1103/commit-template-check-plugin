@@ -84,7 +84,7 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
             try {
                 if (new File(filePath).exists()){
                     new RuleCheckApp(filePath).check(sCommitMessage);
-                }else if (path!=null&&path.endsWith("json")&&new File(filePath).exists()){
+                }else if (path!=null&&path.endsWith("json")&&new File(path).exists()){
                     new RuleCheckApp(path).check(sCommitMessage);
                 }else{
                     new RuleCheckApp().check(sCommitMessage);
