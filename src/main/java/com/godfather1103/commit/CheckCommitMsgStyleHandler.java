@@ -32,7 +32,7 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
 
     private Project myProject;
     private CheckinProjectPanel myCheckinPanel;
-    private static boolean checkFlag = false;
+    private static boolean checkFlag = true;
 
     public CheckCommitMsgStyleHandler(Project myProject,CheckinProjectPanel myCheckinPanel) {
         this.myProject = myProject;
