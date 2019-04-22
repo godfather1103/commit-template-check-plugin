@@ -42,7 +42,7 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
     @Nullable
     @Override
     public RefreshableOnComponent getBeforeCheckinConfigurationPanel() {
-        NonFocusableCheckBox checkBox = new NonFocusableCheckBox("检查注释风格");
+        NonFocusableCheckBox checkBox = new NonFocusableCheckBox("\u68c0\u67e5\u6ce8\u91ca\u98ce\u683c");
         return new RefreshableOnComponent() {
             @Override
             public JComponent getComponent() {
