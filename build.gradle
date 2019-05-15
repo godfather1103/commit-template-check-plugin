@@ -13,11 +13,15 @@ buildscript {
 apply plugin: 'org.jetbrains.intellij'
 
 group 'com.godfather1103'
-version '1.6.0'
+version '1.7.1'
 
 repositories {
     maven {url "http://maven.aliyun.com/nexus/content/groups/public"}
     mavenCentral()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }
 
 dependencies {
