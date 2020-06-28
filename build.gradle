@@ -30,6 +30,6 @@ dependencies {
 }
 
 intellij {
-    version '14.1.7'
+    version 'IC-2016.2'
     updateSinceUntilBuild false
 }
