@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>commit-template-check-plugin</id>
     <name>Git Commit Template Check</name>
-    <version>1.7.1</version>
+    <version>1.7.2</version>
 
     <vendor email="chuchuanbao@gmail.com" />
 
