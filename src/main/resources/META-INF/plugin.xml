@@ -6,7 +6,7 @@
     <vendor email="chuchuanbao@gmail.com" />
 
     <description><![CDATA[
-        <p>Create a commit message with the following template:</p>
+        <p>该插件可以按照如下模板去生成commit的内容，并提供了检测commit的格式的操作:</p>
 
         <pre>
         &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
@@ -15,6 +15,7 @@
         &lt;BLANK LINE&gt;
         &lt;footer&gt;
         </pre>
+        <p>该插件是在<a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>的基础上开发完成</p>
     ]]></description>
 
     <idea-version since-build="145.0"/>
