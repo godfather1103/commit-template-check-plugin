@@ -33,3 +33,7 @@ intellij {
     version 'IC-2016.2'
     updateSinceUntilBuild false
 }
+
+publishPlugin {
+    token = System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken")
+}
