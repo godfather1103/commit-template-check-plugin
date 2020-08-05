@@ -1,24 +1,11 @@
 <idea-plugin>
     <id>commit-template-check-plugin</id>
     <name>Git Commit Template Check</name>
-    <version>1.7.3</version>
+    <version>1.7.4</version>
 
-    <vendor email="chuchuanbao@gmail.com" />
+    <vendor email="chuchuanbao@gmail.com">Jack Chu</vendor>
 
     <description><![CDATA[
-        <h2>中文说明：</h2>
-        <p>该插件可以按照如下模板去生成commit的内容，并提供了检测commit的格式的操作:</p>
-
-        <pre>
-        &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
-        &lt;BLANK LINE&gt;
-        &lt;body&gt;
-        &lt;BLANK LINE&gt;
-        &lt;footer&gt;
-        </pre>
-
-        <p>该插件是在<a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>的基础上开发完成</p>
-        <br/>
         <h2>English Readme：</h2>
         <p>Create a commit message with the following template,It also provides the operation of checking the format of commit:</p>
 
@@ -31,8 +18,19 @@
         </pre>
 
         <p>The plug-in is based on <a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a></p>
-        <br/>
 
+        <h2>中文说明：</h2>
+        <p>该插件可以按照如下模板去生成commit的内容，并提供了检测commit的格式的操作:</p>
+
+        <pre>
+        &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
+        &lt;BLANK LINE&gt;
+        &lt;body&gt;
+        &lt;BLANK LINE&gt;
+        &lt;footer&gt;
+        </pre>
+
+        <p>该插件是在<a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>的基础上开发完成</p>
     ]]></description>
 
     <idea-version since-build="145.0"/>
