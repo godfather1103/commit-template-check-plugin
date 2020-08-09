@@ -6,32 +6,46 @@
     <vendor email="chuchuanbao@gmail.com" url="https://github.com/godfather1103">Jack Chu</vendor>
 
     <description><![CDATA[
-        <h2>English Readme：</h2>
-        <p>Create a commit message with the following template,It also provides the operation of checking the format of commit:</p>
+<h2>English Readme：</h2>
+<p>Create a commit message with the following template,It also provides the operation of checking the format of commit:</p>
 
-        <pre>
-        &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
-        &lt;BLANK LINE&gt;
-        &lt;body&gt;
-        &lt;BLANK LINE&gt;
-        &lt;footer&gt;
-        </pre>
+<pre>
+&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
+&lt;BLANK LINE&gt;
+&lt;body&gt;
+&lt;BLANK LINE&gt;
+&lt;footer&gt;
+</pre>
 
-        <p>The plug-in is based on <a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a></p>
+<p>The plug-in is based on <a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a></p>
 
-        <h2>中文说明：</h2>
-        <p>该插件可以按照如下模板去生成commit的内容，并提供了检测commit的格式的操作:</p>
+<h2>中文说明：</h2>
+<p>该插件可以按照如下模板去生成commit的内容，并提供了检测commit的格式的操作:</p>
 
-        <pre>
-        &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
-        &lt;BLANK LINE&gt;
-        &lt;body&gt;
-        &lt;BLANK LINE&gt;
-        &lt;footer&gt;
-        </pre>
+<pre>
+&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
+&lt;BLANK LINE&gt;
+&lt;body&gt;
+&lt;BLANK LINE&gt;
+&lt;footer&gt;
+</pre>
 
-        <p>该插件是在<a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>的基础上开发完成</p>
-    ]]></description>
+<p>该插件是在<a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>的基础上开发完成</p>
+
+<h2>捐赠(Sponsor)</h2>
+<pre>
+你的馈赠将助力我更好的去贡献，谢谢！
+Your gift will help me to contribute better, thank you!
+
+<a href="https://paypal.me/godfather1103?locale.x=zh_XC">PayPal</a>
+
+支付宝(Alipay)
+<img src="https://wx2.sinaimg.cn/mw690/6ab2294dgy1ghkvhf929jj20go0p0gmc.jpg" alt="支付宝" width="200" height="300" align="bottom" />
+
+微信(WeChat)
+<img src="https://wx3.sinaimg.cn/mw690/6ab2294dgy1ghkvhforzlj20st0st0x5.jpg" alt="微信支付" width="300" height="320" align="bottom" />
+</pre>
+]]></description>
 
     <change-notes>
         <![CDATA[
