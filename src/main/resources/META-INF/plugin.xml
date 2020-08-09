@@ -33,6 +33,17 @@
         <p>该插件是在<a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>的基础上开发完成</p>
     ]]></description>
 
+    <change-notes>
+        <![CDATA[
+        <ul>
+        1.7.5
+        <li>Region adaptation for description information</li>
+        <li>描述信息的区域自适应</li>
+        </ul>
+        <ul>
+        ]]>
+    </change-notes>
+
     <idea-version since-build="145.0"/>
 
     <depends>com.intellij.modules.vcs</depends>
