@@ -5,14 +5,15 @@ import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
 import com.intellij.openapi.ui.Messages;
 
-/** 
+/**
  * <p>Title:        Godfather1103's Github</p>
  * <p>Copyright:    Copyright (c) 2018</p>
  * <p>Company:      https://github.com/godfather1103</p>
- * @author  作者: godfa E-mail: chuchuanbao@gmail.com
+ *
+ * @author 作者: godfa E-mail: chuchuanbao@gmail.com
  * 创建时间：2018/11/3 23:36
- * @version 1.0  
- * @since  
+ * @version 1.0
+ * @since
  */
 public class NotificationCenter {
 

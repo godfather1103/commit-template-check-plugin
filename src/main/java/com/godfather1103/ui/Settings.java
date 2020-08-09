@@ -17,7 +17,8 @@ import java.io.File;
  * <p>Title:        Godfather1103's Github</p>
  * <p>Copyright:    Copyright (c) 2018</p>
  * <p>Company:      https://github.com/godfather1103</p>
- * @author  作者: godfa E-mail: chuchuanbao@gmail.com
+ *
+ * @author 作者: godfa E-mail: chuchuanbao@gmail.com
  * 创建时间：2018/11/3 23:29
  * @version 1.0
  * @since
@@ -49,18 +50,18 @@ public class Settings implements Configurable {
     @Override
     public JComponent createComponent() {
         FileChooserDescriptor descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor();
-        ruleConfFilePath.addBrowseFolderListener(new TextBrowseFolderListener(descriptor){
+        ruleConfFilePath.addBrowseFolderListener(new TextBrowseFolderListener(descriptor) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = new JFileChooser();
                 String current = ruleConfFilePath.getText();
-                if (!current.isEmpty()){
+                if (!current.isEmpty()) {
                     fc.setCurrentDirectory(new File(current));
                 }
                 fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
                 fc.showOpenDialog(rootPanel);
                 File file = fc.getSelectedFile();
-                String path = file == null?"":file.getAbsolutePath();
+                String path = file == null ? "" : file.getAbsolutePath();
                 ruleConfFilePath.setText(path);
             }
         });
@@ -72,7 +73,7 @@ public class Settings implements Configurable {
         PropertiesComponent prop = PropertiesComponent.getInstance();
         String storedPath = prop.getValue(PATH);
         String uiPath = ruleConfFilePath.getText();
-        if (storedPath==null){
+        if (storedPath == null) {
             storedPath = "";
         }
         return !storedPath.equals(uiPath);
@@ -81,7 +82,7 @@ public class Settings implements Configurable {
     @Override
     public void apply() throws ConfigurationException {
         PropertiesComponent prop = PropertiesComponent.getInstance();
-        prop.setValue(PATH,ruleConfFilePath.getText());
+        prop.setValue(PATH, ruleConfFilePath.getText());
     }
 
     @Override

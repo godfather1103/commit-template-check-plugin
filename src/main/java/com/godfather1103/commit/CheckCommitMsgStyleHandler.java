@@ -19,14 +19,15 @@ import java.awt.*;
 import java.io.File;
 
 
-/** 
+/**
  * <p>Title:        Godfather1103's Github</p>
  * <p>Copyright:    Copyright (c) 2018</p>
  * <p>Company:      https://github.com/godfather1103</p>
- * @author  作者: godfa E-mail: chuchuanbao@gmail.com
+ *
+ * @author 作者: godfa E-mail: chuchuanbao@gmail.com
  * 创建时间：2018/11/3 23:36
- * @version 1.0  
- * @since  1.0
+ * @version 1.0
+ * @since 1.0
  */
 public class CheckCommitMsgStyleHandler extends CheckinHandler {
 
@@ -34,7 +35,7 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
     private CheckinProjectPanel myCheckinPanel;
     private static boolean checkFlag = true;
 
-    CheckCommitMsgStyleHandler(Project myProject,CheckinProjectPanel myCheckinPanel) {
+    CheckCommitMsgStyleHandler(Project myProject, CheckinProjectPanel myCheckinPanel) {
         this.myProject = myProject;
         this.myCheckinPanel = myCheckinPanel;
     }
@@ -74,24 +75,24 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
     @Override
     public ReturnResult beforeCheckin() {
         String basePath = myProject.getBasePath();
-        String filePath = basePath+"/check.commit.style.rule.json";
+        String filePath = basePath + "/check.commit.style.rule.json";
         PropertiesComponent prop = PropertiesComponent.getInstance();
         String path = prop.getValue(Settings.PATH);
         String sCommitMessage = myCheckinPanel.getCommitMessage();
-        if (!checkFlag){
+        if (!checkFlag) {
             return ReturnResult.COMMIT;
-        }else {
+        } else {
             try {
-                if (new File(filePath).exists()){
+                if (new File(filePath).exists()) {
                     new RuleCheckApp(filePath).check(sCommitMessage);
-                }else if (path!=null&&path.endsWith("json")&&new File(path).exists()){
+                } else if (path != null && path.endsWith("json") && new File(path).exists()) {
                     new RuleCheckApp(path).check(sCommitMessage);
-                }else{
+                } else {
                     new RuleCheckApp().check(sCommitMessage);
                 }
                 return ReturnResult.COMMIT;
-            }catch (FailureException ex){
-                NotificationCenter.noticeWindows("\u68c0\u6d4b\u7ed3\u679c\u63d0\u9192",ex.getMessage(),NotificationCenter.TYPE_ERROR);
+            } catch (FailureException ex) {
+                NotificationCenter.noticeWindows("\u68c0\u6d4b\u7ed3\u679c\u63d0\u9192", ex.getMessage(), NotificationCenter.TYPE_ERROR);
                 return ReturnResult.CANCEL;
             }
         }
