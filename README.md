@@ -1,6 +1,4 @@
-# commit-template-check-plugin
-> IDEA插件：用于模板化生成commit message和检查相关内容是否符合要求  
-> IDEA plugin: Create a commit message with the template,It also provides the operation of checking the format of commit. 
+# commit-template-check-plugin (The plugin in jetbrains IDEs)
 
 <h2>English Readme：</h2>
 <p>Create a commit message with the following template,It also provides the operation of checking the format of commit:</p>
@@ -41,4 +39,4 @@ Your gift will help me to contribute better, thank you!
 支付宝(Alipay)  
 <img src="https://wx2.sinaimg.cn/mw690/6ab2294dgy1ghkvhf929jj20go0p0gmc.jpg" alt="支付宝" width="200" height="300" align="bottom" />   
 微信(WeChat)  
-<img src="https://wx3.sinaimg.cn/mw690/6ab2294dgy1ghkvhforzlj20st0st0x5.jpg" alt="微信支付" width="200" height="220" align="bottom" />
+<img src="https://wx3.sinaimg.cn/mw690/6ab2294dgy1ghkvhforzlj20st0st0x5.jpg" alt="微信支付" width="300" height="320" align="bottom" />
