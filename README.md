@@ -27,8 +27,14 @@
 <p>该插件是在<a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>的基础上开发完成</p>
 
 ### 附录(Annex)
-commit-template-check-plugin [Plugin](https://plugins.jetbrains.com/plugin/14822-git-commit-template-check/) [Github](https://github.com/godfather1103/commit-template-check-plugin) [Gitee](https://gitee.com/godfather1103/commit-template-check-plugin)  
-commit-template-idea-plugin [Plugin](https://plugins.jetbrains.com/plugin/9861-git-commit-template)  [Code](https://github.com/MobileTribe/commit-template-idea-plugin)
+commit-template-check-plugin:  
+[Plugin](https://plugins.jetbrains.com/plugin/14822-git-commit-template-check/)  
+[Github](https://github.com/godfather1103/commit-template-check-plugin)  
+[码云](https://gitee.com/godfather1103/commit-template-check-plugin)  
+
+commit-template-idea-plugin:  
+[Plugin](https://plugins.jetbrains.com/plugin/9861-git-commit-template)  
+[Code](https://github.com/MobileTribe/commit-template-idea-plugin)  
 
 ### 捐赠(Sponsor)  
 你的馈赠将助力我更好的去贡献，谢谢！  
