@@ -12,6 +12,6 @@ commit-template-idea-plugin [插件](https://plugins.jetbrains.com/plugin/9861-g
 [PayPal](https://paypal.me/godfather1103?locale.x=zh_XC)  
 
 支付宝  
-![支付宝](pic/Alipay.png)  
+<img src="https://wx2.sinaimg.cn/mw690/6ab2294dgy1ghkvhf929jj20go0p0gmc.jpg" alt="微信支付" width="200" height="300" align="bottom" />   
 微信  
-![微信](pic/WeChat.png)  
+<img src="https://wx3.sinaimg.cn/mw690/6ab2294dgy1ghkvhforzlj20st0st0x5.jpg" alt="微信支付" width="200" height="220" align="bottom" />
