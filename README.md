@@ -7,7 +7,7 @@ commit-template-check-plugin [插件](https://plugins.jetbrains.com/plugin/14822
 commit-template-idea-plugin [插件](https://plugins.jetbrains.com/plugin/9861-git-commit-template)  [源码](https://github.com/MobileTribe/commit-template-idea-plugin)
 
 ### 捐赠
-如果我的插件帮助到了您，欢迎您捐赠，谢谢！  
+你的馈赠将助力我更好的去贡献，谢谢！
 [PayPal](https://paypal.me/godfather1103?locale.x=zh_XC)  
 支付宝  
 ![支付宝](pic/Alipay.png)  
