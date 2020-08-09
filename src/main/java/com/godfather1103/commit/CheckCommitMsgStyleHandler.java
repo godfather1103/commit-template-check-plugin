@@ -17,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.ResourceBundle;
 
 
 /**
@@ -31,6 +32,8 @@ import java.io.File;
  */
 public class CheckCommitMsgStyleHandler extends CheckinHandler {
 
+    ResourceBundle bundle = ResourceBundle.getBundle("i18n/describe");
+
     private Project myProject;
     private CheckinProjectPanel myCheckinPanel;
     private static boolean checkFlag = true;
@@ -43,7 +46,7 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
     @Nullable
     @Override
     public RefreshableOnComponent getBeforeCheckinConfigurationPanel() {
-        NonFocusableCheckBox checkBox = new NonFocusableCheckBox("\u68c0\u67e5\u6ce8\u91ca\u98ce\u683c");
+        NonFocusableCheckBox checkBox = new NonFocusableCheckBox(bundle.getString("check_label_message"));
         return new RefreshableOnComponent() {
             @Override
             public JComponent getComponent() {
@@ -92,7 +95,7 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
                 }
                 return ReturnResult.COMMIT;
             } catch (FailureException ex) {
-                NotificationCenter.noticeWindows("\u68c0\u6d4b\u7ed3\u679c\u63d0\u9192", ex.getMessage(), NotificationCenter.TYPE_ERROR);
+                NotificationCenter.noticeWindows(bundle.getString("detection_result"), ex.getMessage(), NotificationCenter.TYPE_ERROR);
                 return ReturnResult.CANCEL;
             }
         }

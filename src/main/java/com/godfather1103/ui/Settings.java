@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.ResourceBundle;
 
 /**
  * <p>Title:        Godfather1103's Github</p>
@@ -25,6 +26,8 @@ import java.io.File;
  */
 public class Settings implements Configurable {
 
+    ResourceBundle bundle = ResourceBundle.getBundle("i18n/describe");
+
     public static final String PATH = "RuleConfFilePath";
 
     private TextFieldWithBrowseButton ruleConfFilePath;
@@ -32,7 +35,8 @@ public class Settings implements Configurable {
 
     @Override
     public String getDisplayName() {
-        return "Commit Temp Check Configuration";
+        //"Git Commit Template Check Configuration";
+        return bundle.getString("display_name");
     }
 
     @Nullable
