@@ -36,13 +36,13 @@ commit-template-idea-plugin:
 [Plugin](https://plugins.jetbrains.com/plugin/9861-git-commit-template)  
 [Code](https://github.com/MobileTribe/commit-template-idea-plugin)  
 
-### 捐赠(Sponsor)  
+### 捐赠(Donate)  
 你的馈赠将助力我更好的去贡献，谢谢！  
 Your gift will help me to contribute better, thank you!  
 
 [PayPal](https://paypal.me/godfather1103?locale.x=zh_XC)  
 
 支付宝(Alipay)  
-<img src="https://s1.ax1x.com/2020/08/14/diiRPJ.png" alt="支付宝" width="200" height="300" align="bottom" />   
+<img src="https://ae04.alicdn.com/kf/U4f9b6b08999a4e2f9ccd2ca74cd75c1bP.jpg" alt="支付宝" width="200" height="300" align="bottom" />   
 微信(WeChat)  
-<img src="https://s1.ax1x.com/2020/08/14/diFFiQ.png" alt="微信支付" width="300" height="320" align="bottom" />
+<img src="https://s.pc.qq.com/tousu/img/20200815/9185636_1597474776.jpg" alt="微信支付" width="300" height="320" align="bottom" />
