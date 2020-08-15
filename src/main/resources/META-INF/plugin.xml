@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>commit-template-check-plugin</id>
     <name>Git Commit Template Check</name>
-    <version>1.7.5</version>
+    <version>1.7.6</version>
 
     <vendor email="chuchuanbao@gmail.com" url="https://github.com/godfather1103">Jack Chu</vendor>
 
@@ -55,6 +55,10 @@ Your gift will help me to contribute better, thank you!
         <li>描述信息的区域自适应</li>
         </ul>
         <ul>
+        1.7.6
+        <li>Region adaptation for description information</li>
+        <li>升级校验工具版本</li>
+        </ul>
         ]]>
     </change-notes>
 
