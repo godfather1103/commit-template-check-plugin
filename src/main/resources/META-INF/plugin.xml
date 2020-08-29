@@ -50,14 +50,14 @@ Your gift will help me to contribute better, thank you!
     <change-notes>
         <![CDATA[
         <ul>
-        1.7.5
-        <li>Region adaptation for description information</li>
-        <li>描述信息的区域自适应</li>
-        </ul>
-        <ul>
         1.7.6
         <li>Upgrade tool version</li>
         <li>升级校验工具版本</li>
+        </ul>
+        <ul>
+        1.7.5
+        <li>Region adaptation for description information</li>
+        <li>描述信息的区域自适应</li>
         </ul>
         ]]>
     </change-notes>
