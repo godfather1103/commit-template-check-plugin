@@ -1,5 +1,6 @@
 package com.godfather1103.util;
 
+import com.godfather1103.entity.JiraEntity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -8,9 +9,9 @@ import okhttp3.Request;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -44,7 +45,7 @@ public class JiraUtils {
      * @author 作者: Jack Chu E-mail: chuchuanbao@gmail.com
      * 创建时间：2020-08-29 21:56
      */
-    public static Map<String, String> getToDoList(@NotNull String server, @NotNull String userName, @NotNull String password) throws Exception {
+    public static List<JiraEntity> getToDoList(@NotNull String server, @NotNull String userName, @NotNull String password) throws Exception {
         String url = server + "/rest/api/2/search?jql=assignee=currentUser()+AND+resolution=Unresolved";
         Request request = new Request.Builder()
                 .url(url)
@@ -53,14 +54,14 @@ public class JiraUtils {
         String response = CLIENT.newCall(request).execute().body().string();
         JsonObject jsonObject = PARSER.parse(response).getAsJsonObject();
         JsonArray issues = jsonObject.get("issues").getAsJsonArray();
-        Map<String, String> result = new Hashtable<>(issues.size());
+        List<JiraEntity> list = new ArrayList<>(issues.size());
         issues.forEach(item -> {
             JsonObject issue = item.getAsJsonObject();
             String key = issue.get("key").getAsString();
             JsonObject fields = issue.getAsJsonObject("fields");
-            result.put(key, fields.get("summary").getAsString());
+            list.add(new JiraEntity(key, fields.get("summary").getAsString()));
         });
-        return result;
+        return list;
     }
 
     private static String generateAuth(@NotNull String userName, @NotNull String password) throws UnsupportedEncodingException {

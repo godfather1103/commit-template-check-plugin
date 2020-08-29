@@ -1,5 +1,6 @@
 package com.godfather1103.ui;
 
+import com.godfather1103.entity.ConfigEntity;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
@@ -28,11 +29,6 @@ import static com.godfather1103.util.StringUtils.showString;
 public class Settings implements Configurable {
 
     ResourceBundle bundle = ResourceBundle.getBundle("i18n/describe");
-
-    public static final String PATH = "RuleConfFilePath";
-    public static final String JIRA_SERVER_ADDRESS = "JIRA_SERVER_ADDRESS";
-    public static final String JIRA_USERNAME = "JIRA_USERNAME";
-    public static final String JIRA_PASSWORD = "JIRA_PASSWORD";
 
     private TextFieldWithBrowseButton ruleConfFilePath;
     private JPanel rootPanel;
@@ -82,10 +78,10 @@ public class Settings implements Configurable {
     @Override
     public boolean isModified() {
         PropertiesComponent prop = PropertiesComponent.getInstance();
-        String storedPath = showString(prop.getValue(PATH));
-        String storedJiraServerAddress = showString(prop.getValue(JIRA_SERVER_ADDRESS));
-        String storedJiraUserName = showString(prop.getValue(JIRA_USERNAME));
-        String storedJiraPassword = showString(prop.getValue(JIRA_PASSWORD));
+        String storedPath = showString(prop.getValue(ConfigEntity.PATH));
+        String storedJiraServerAddress = showString(prop.getValue(ConfigEntity.JIRA_SERVER_ADDRESS));
+        String storedJiraUserName = showString(prop.getValue(ConfigEntity.JIRA_USERNAME));
+        String storedJiraPassword = showString(prop.getValue(ConfigEntity.JIRA_PASSWORD));
         String uiPath = showString(ruleConfFilePath.getText());
         String uiAddress = showString(jira_server.getText());
         String uiUserName = showString(jira_username.getText());
@@ -100,18 +96,18 @@ public class Settings implements Configurable {
     @Override
     public void apply() {
         PropertiesComponent prop = PropertiesComponent.getInstance();
-        prop.setValue(PATH, showString(ruleConfFilePath.getText()));
-        prop.setValue(JIRA_SERVER_ADDRESS, showString(jira_server.getText()));
-        prop.setValue(JIRA_USERNAME, showString(jira_username.getText()));
-        prop.setValue(JIRA_PASSWORD, showString(jira_password.getPassword()));
+        prop.setValue(ConfigEntity.PATH, showString(ruleConfFilePath.getText()));
+        prop.setValue(ConfigEntity.JIRA_SERVER_ADDRESS, showString(jira_server.getText()));
+        prop.setValue(ConfigEntity.JIRA_USERNAME, showString(jira_username.getText()));
+        prop.setValue(ConfigEntity.JIRA_PASSWORD, showString(jira_password.getPassword()));
     }
 
     @Override
     public void reset() {
         PropertiesComponent prop = PropertiesComponent.getInstance();
-        ruleConfFilePath.setText(prop.getValue(PATH));
-        jira_server.setText(prop.getValue(JIRA_SERVER_ADDRESS));
-        jira_username.setText(prop.getValue(JIRA_USERNAME));
-        jira_password.setText(prop.getValue(JIRA_PASSWORD));
+        ruleConfFilePath.setText(prop.getValue(ConfigEntity.PATH));
+        jira_server.setText(prop.getValue(ConfigEntity.JIRA_SERVER_ADDRESS));
+        jira_username.setText(prop.getValue(ConfigEntity.JIRA_USERNAME));
+        jira_password.setText(prop.getValue(ConfigEntity.JIRA_PASSWORD));
     }
 }
