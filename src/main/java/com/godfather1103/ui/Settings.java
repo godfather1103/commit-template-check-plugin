@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.ResourceBundle;
 
+import static com.godfather1103.util.StringUtils.showString;
+
 /**
  * <p>Title:        Godfather1103's Github</p>
  * <p>Copyright:    Copyright (c) 2018</p>
@@ -94,21 +96,6 @@ public class Settings implements Configurable {
                 || !storedJiraPassword.equals(uiPassword);
     }
 
-    private String showString(String str) {
-        if (str == null || str.trim().length() == 0) {
-            return "";
-        } else {
-            return str.trim();
-        }
-    }
-
-    private String showString(char[] str) {
-        if (str == null || str.length == 0) {
-            return "";
-        } else {
-            return new String(str);
-        }
-    }
 
     @Override
     public void apply() {
