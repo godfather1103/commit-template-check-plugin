@@ -1,7 +1,17 @@
 package com.godfather1103.util;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>Title:        Godfather1103's Github</p>
@@ -15,6 +25,15 @@ import java.util.Map;
  * Jira相关工具类
  */
 public class JiraUtils {
+
+    private final static OkHttpClient CLIENT = new OkHttpClient.Builder()
+            .callTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .build();
+
+    private final static JsonParser PARSER = new JsonParser();
+
     /**
      * 获取待处理的任务列表<BR>
      *
@@ -25,8 +44,28 @@ public class JiraUtils {
      * @author 作者: Jack Chu E-mail: chuchuanbao@gmail.com
      * 创建时间：2020-08-29 21:56
      */
-    public static Map<String, String> getToDoList(String server, String userName, String password) {
-        // TODO 待增加相关获取逻辑
-        return new Hashtable<>(0);
+    public static Map<String, String> getToDoList(@NotNull String server, @NotNull String userName, @NotNull String password) throws Exception {
+        String url = server + "/rest/api/2/search?jql=assignee=currentUser()+AND+resolution=Unresolved";
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Authorization", generateAuth(userName, password))
+                .build();
+        String response = CLIENT.newCall(request).execute().body().string();
+        JsonObject jsonObject = PARSER.parse(response).getAsJsonObject();
+        JsonArray issues = jsonObject.get("issues").getAsJsonArray();
+        Map<String, String> result = new Hashtable<>(issues.size());
+        issues.forEach(item -> {
+            JsonObject issue = item.getAsJsonObject();
+            String key = issue.get("key").getAsString();
+            JsonObject fields = issue.getAsJsonObject("fields");
+            result.put(key, fields.get("summary").getAsString());
+        });
+        return result;
+    }
+
+    private static String generateAuth(@NotNull String userName, @NotNull String password) throws UnsupportedEncodingException {
+        String base = "Basic ";
+        String info = Base64.getEncoder().encodeToString((userName + ":" + password).getBytes("UTF-8"));
+        return base + info;
     }
 }
