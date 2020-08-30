@@ -9,6 +9,7 @@ import com.intellij.notification.NotificationType;
 import com.intellij.openapi.ui.DialogWrapper;
 
 import javax.swing.*;
+import java.awt.event.ItemEvent;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,15 @@ public class CommitPanel {
                     toDoList.forEach(changeScope::addItem);
                 }
                 changeScope.setSelectedIndex(-1);
+                changeScope.addItemListener(e -> {
+                    if (e.getStateChange() == ItemEvent.SELECTED) {
+                        Object item = e.getItem();
+                        if (item instanceof JiraEntity) {
+                            JiraEntity entity = (JiraEntity) item;
+                            changeScope.setSelectedItem(entity.getKey());
+                        }
+                    }
+                });
             } catch (Exception exception) {
                 NotificationCenter.notice(exception.getMessage(), NotificationType.ERROR);
             }
