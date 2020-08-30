@@ -38,6 +38,7 @@ public class CommitPanel {
                 if (toDoList != null) {
                     toDoList.forEach(changeScope::addItem);
                 }
+                changeScope.setSelectedIndex(-1);
             } catch (Exception exception) {
                 NotificationCenter.notice(exception.getMessage(), NotificationType.ERROR);
             }
