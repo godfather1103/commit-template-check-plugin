@@ -25,30 +25,38 @@ public class CommitPanel {
     private JTextField closedIssues;
     private JTextField breakingChanges;
 
-    private Optional<ConfigEntity> jira;
+    private Optional<ConfigEntity> configEntity;
 
     CommitPanel(DialogWrapper dialog) {
         for (ChangeType type : ChangeType.values()) {
             changeType.addItem(type);
         }
-        jira = ConfigEntity.getEntity(PropertiesComponent.getInstance());
+        configEntity = ConfigEntity.getEntity(PropertiesComponent.getInstance());
         // TODO 待实现
-        if (jira.isPresent() && jira.get().isOpenJira()) {
+        if (configEntity.isPresent() && configEntity.get().isOpenJira()) {
+            ConfigEntity config = configEntity.get();
             try {
-                List<JiraEntity> toDoList = JiraUtils.getToDoList(jira.get().getJiraServer(), jira.get().getJiraUserName(), jira.get().getJiraPassword());
+                List<JiraEntity> toDoList = JiraUtils.getToDoList(config.getJiraServer(), config.getJiraUserName(), config.getJiraPassword());
                 if (toDoList != null) {
                     toDoList.forEach(changeScope::addItem);
                 }
                 changeScope.setSelectedIndex(-1);
-                changeScope.addItemListener(e -> {
-                    if (e.getStateChange() == ItemEvent.SELECTED) {
-                        Object item = e.getItem();
-                        if (item instanceof JiraEntity) {
-                            JiraEntity entity = (JiraEntity) item;
-                            changeScope.setSelectedItem(entity.getKey());
+                if (config.getSelectedMode() == ConfigEntity.SelectedMode.JIRAKEY
+                        || config.getSelectedMode() == ConfigEntity.SelectedMode.JIRASUMMARY) {
+                    changeScope.addItemListener(e -> {
+                        if (e.getStateChange() == ItemEvent.SELECTED) {
+                            Object item = e.getItem();
+                            if (item instanceof JiraEntity) {
+                                JiraEntity entity = (JiraEntity) item;
+                                if (config.getSelectedMode() == ConfigEntity.SelectedMode.JIRAKEY) {
+                                    changeScope.setSelectedItem(entity.getKey());
+                                } else if (config.getSelectedMode() == ConfigEntity.SelectedMode.JIRASUMMARY) {
+                                    changeScope.setSelectedItem(entity.getSummary());
+                                }
+                            }
                         }
-                    }
-                });
+                    });
+                }
             } catch (Exception exception) {
                 NotificationCenter.notice(exception.getMessage(), NotificationType.ERROR);
             }
@@ -68,7 +76,17 @@ public class CommitPanel {
         if (changeScope.getSelectedIndex() == -1) {
             return changeScope.getSelectedItem().toString();
         } else {
-            return ((JiraEntity) changeScope.getSelectedItem()).getKey();
+            if (configEntity.isPresent() && configEntity.get().isOpenJira()) {
+                ConfigEntity config = configEntity.get();
+                if (config.getSelectedMode() == ConfigEntity.SelectedMode.SEE) {
+                    return changeScope.getSelectedItem().toString();
+                } else if (config.getSelectedMode() == ConfigEntity.SelectedMode.JIRASUMMARY) {
+                    return ((JiraEntity) changeScope.getSelectedItem()).getSummary();
+                }
+                return ((JiraEntity) changeScope.getSelectedItem()).getKey();
+            } else {
+                return changeScope.getSelectedItem().toString();
+            }
         }
     }
 

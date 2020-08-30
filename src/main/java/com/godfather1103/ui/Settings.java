@@ -35,6 +35,7 @@ public class Settings implements Configurable {
     private JTextField jira_username;
     private JPasswordField jira_password;
     private JTextField jira_server;
+    private JComboBox scopeSelectedMode;
 
     @Override
     public String getDisplayName() {
@@ -72,6 +73,10 @@ public class Settings implements Configurable {
                 ruleConfFilePath.setText(path);
             }
         });
+
+        for (ConfigEntity.SelectedMode value : ConfigEntity.SelectedMode.values()) {
+            scopeSelectedMode.addItem(value);
+        }
         return rootPanel;
     }
 
@@ -82,13 +87,21 @@ public class Settings implements Configurable {
         String storedJiraServerAddress = showString(prop.getValue(ConfigEntity.JIRA_SERVER_ADDRESS));
         String storedJiraUserName = showString(prop.getValue(ConfigEntity.JIRA_USERNAME));
         String storedJiraPassword = showString(prop.getValue(ConfigEntity.JIRA_PASSWORD));
+        ConfigEntity.SelectedMode storedSelectedMode = ConfigEntity.SelectedMode
+                .getByKey(showString(prop.getValue(ConfigEntity.SCOPE_SELECTED_ITEM_INPUT_VALUE)))
+                .orElse(ConfigEntity.SelectedMode.JIRAKEY);
         String uiPath = showString(ruleConfFilePath.getText());
         String uiAddress = showString(jira_server.getText());
         String uiUserName = showString(jira_username.getText());
         String uiPassword = showString(jira_password.getPassword());
+        ConfigEntity.SelectedMode uiSelectedMode = ConfigEntity.SelectedMode.JIRAKEY;
+        if (scopeSelectedMode.getSelectedIndex() != -1) {
+            uiSelectedMode = (ConfigEntity.SelectedMode) scopeSelectedMode.getSelectedItem();
+        }
         return !storedPath.equals(uiPath)
                 || !storedJiraServerAddress.equals(uiAddress)
                 || !storedJiraUserName.equals(uiUserName)
+                || uiSelectedMode != storedSelectedMode
                 || !storedJiraPassword.equals(uiPassword);
     }
 
@@ -100,6 +113,11 @@ public class Settings implements Configurable {
         prop.setValue(ConfigEntity.JIRA_SERVER_ADDRESS, showString(jira_server.getText()));
         prop.setValue(ConfigEntity.JIRA_USERNAME, showString(jira_username.getText()));
         prop.setValue(ConfigEntity.JIRA_PASSWORD, showString(jira_password.getPassword()));
+        prop.setValue(ConfigEntity.JIRA_PASSWORD, showString(jira_password.getPassword()));
+        if (scopeSelectedMode.getSelectedIndex() != -1) {
+            prop.setValue(ConfigEntity.SCOPE_SELECTED_ITEM_INPUT_VALUE,
+                    ((ConfigEntity.SelectedMode) scopeSelectedMode.getSelectedItem()).getKey());
+        }
     }
 
     @Override
@@ -109,5 +127,8 @@ public class Settings implements Configurable {
         jira_server.setText(prop.getValue(ConfigEntity.JIRA_SERVER_ADDRESS));
         jira_username.setText(prop.getValue(ConfigEntity.JIRA_USERNAME));
         jira_password.setText(prop.getValue(ConfigEntity.JIRA_PASSWORD));
+        scopeSelectedMode.setSelectedItem(ConfigEntity.SelectedMode
+                .getByKey(showString(prop.getValue(ConfigEntity.SCOPE_SELECTED_ITEM_INPUT_VALUE)))
+                .orElse(ConfigEntity.SelectedMode.JIRAKEY));
     }
 }

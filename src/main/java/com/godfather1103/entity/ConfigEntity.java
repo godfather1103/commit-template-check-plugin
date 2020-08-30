@@ -4,7 +4,9 @@ import com.godfather1103.util.StringUtils;
 import com.intellij.ide.util.PropertiesComponent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 /**
  * <p>Title:        Godfather1103's Github</p>
@@ -18,6 +20,40 @@ import java.util.Optional;
  * 配置相关对象
  */
 public class ConfigEntity {
+
+    public enum SelectedMode {
+        JIRAKEY(1, "jira_key_mode"),
+        JIRASUMMARY(2, "jira_summary_mode"),
+        SEE(3, "see_mode");
+
+        private final int key;
+        private final String value;
+
+        SelectedMode(int key, String value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public String getKey() {
+            return Integer.toString(key);
+        }
+
+        public static Optional<SelectedMode> getByKey(String key) {
+            if (StringUtils.isEmpty(key)) {
+                return Optional.of(JIRAKEY);
+            }
+            return Arrays.stream(SelectedMode.values())
+                    .filter(item -> item.key == Integer.valueOf(key))
+                    .findFirst();
+        }
+
+        ResourceBundle bundle = ResourceBundle.getBundle("i18n/describe");
+
+        @Override
+        public String toString() {
+            return bundle.getString(this.value);
+        }
+    }
 
     private ConfigEntity(@NotNull PropertiesComponent prop) {
         initParam(prop);
@@ -35,17 +71,20 @@ public class ConfigEntity {
     public static final String JIRA_SERVER_ADDRESS = "JIRA_SERVER_ADDRESS";
     public static final String JIRA_USERNAME = "JIRA_USERNAME";
     public static final String JIRA_PASSWORD = "JIRA_PASSWORD";
+    public static final String SCOPE_SELECTED_ITEM_INPUT_VALUE = "SCOPE_SELECTED_ITEM_INPUT_VALUE";
 
     private String path;
     private String jiraServer;
     private String jiraUserName;
     private String jiraPassword;
+    private SelectedMode selectedMode;
 
     public void initParam(@NotNull PropertiesComponent prop) {
         this.path = StringUtils.showString(prop.getValue(PATH));
         this.jiraServer = StringUtils.showString(prop.getValue(JIRA_SERVER_ADDRESS));
         this.jiraUserName = StringUtils.showString(prop.getValue(JIRA_USERNAME));
         this.jiraPassword = StringUtils.showString(prop.getValue(JIRA_PASSWORD));
+        this.selectedMode = SelectedMode.getByKey(prop.getValue(SCOPE_SELECTED_ITEM_INPUT_VALUE)).orElse(SelectedMode.JIRAKEY);
     }
 
     public boolean isOpenJira() {
@@ -91,5 +130,13 @@ public class ConfigEntity {
 
     public void setJiraPassword(String jiraPassword) {
         this.jiraPassword = jiraPassword;
+    }
+
+    public SelectedMode getSelectedMode() {
+        return selectedMode;
+    }
+
+    public void setSelectedMode(SelectedMode selectedMode) {
+        this.selectedMode = selectedMode;
     }
 }
