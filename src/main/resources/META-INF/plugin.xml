@@ -8,7 +8,6 @@
     <description><![CDATA[
 <h2>English Readme：</h2>
 <p>Create a commit message with the following template,It also provides the operation of checking the format of commit:</p>
-
 <pre>
 &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
 &lt;BLANK LINE&gt;
@@ -16,12 +15,11 @@
 &lt;BLANK LINE&gt;
 &lt;footer&gt;
 </pre>
-
+<p>Starting from version 1.7.7, it supports adding JIRA information to scope.</p>
 <p>The plug-in is based on <a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a></p>
 
 <h2>中文说明：</h2>
 <p>该插件可以按照如下模板去生成commit的内容，并提供了检测commit的格式的操作:</p>
-
 <pre>
 &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
 &lt;BLANK LINE&gt;
@@ -29,7 +27,7 @@
 &lt;BLANK LINE&gt;
 &lt;footer&gt;
 </pre>
-
+<p>从1.7.7版本开始支持添加jira信息到scope中。</p>
 <p>该插件是在<a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>的基础上开发完成</p>
 
 <h2>捐赠(Donate)</h2>
