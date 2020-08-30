@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>commit-template-check-plugin</id>
     <name>Git Commit Template Check</name>
-    <version>1.7.6</version>
+    <version>1.7.7</version>
 
     <vendor email="chuchuanbao@gmail.com" url="https://github.com/godfather1103">Jack Chu</vendor>
 
@@ -49,6 +49,11 @@ Your gift will help me to contribute better, thank you!
 
     <change-notes>
         <![CDATA[
+        <ul>
+        1.7.7
+        <li>Support adding JIRA to scope</li>
+        <li>支持添加jira信息到scope中</li>
+        </ul>
         <ul>
         1.7.6
         <li>Upgrade tool version</li>
