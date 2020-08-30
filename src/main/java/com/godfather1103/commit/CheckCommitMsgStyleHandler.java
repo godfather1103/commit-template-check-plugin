@@ -2,8 +2,8 @@ package com.godfather1103.commit;
 
 
 import com.godfather1103.app.RuleCheckApp;
+import com.godfather1103.entity.ConfigEntity;
 import com.godfather1103.error.FailureException;
-import com.godfather1103.ui.Settings;
 import com.godfather1103.util.NotificationCenter;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.project.DumbService;
@@ -80,7 +80,7 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
         String basePath = myProject.getBasePath();
         String filePath = basePath + "/check.commit.style.rule.json";
         PropertiesComponent prop = PropertiesComponent.getInstance();
-        String path = prop.getValue(Settings.PATH);
+        String path = prop.getValue(ConfigEntity.PATH);
         String sCommitMessage = myCheckinPanel.getCommitMessage();
         if (!checkFlag) {
             return ReturnResult.COMMIT;

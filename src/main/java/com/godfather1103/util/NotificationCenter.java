@@ -25,11 +25,15 @@ public class NotificationCenter {
 
 
     public static void notice(String message) {
+        notice(message, NotificationType.INFORMATION);
+    }
+
+    public static void notice(String message, NotificationType type) {
         Notification n = new Notification(
                 "extras",
                 "Notice",
                 message,
-                NotificationType.INFORMATION);
+                type);
         Notifications.Bus.notify(n);
     }
 

@@ -1,10 +1,10 @@
 package com.godfather1103.ui;
 
+import com.godfather1103.entity.ConfigEntity;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
 import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.ui.TextBrowseFolderListener;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import org.jetbrains.annotations.Nullable;
@@ -13,6 +13,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.ResourceBundle;
+
+import static com.godfather1103.util.StringUtils.showString;
 
 /**
  * <p>Title:        Godfather1103's Github</p>
@@ -28,10 +30,12 @@ public class Settings implements Configurable {
 
     ResourceBundle bundle = ResourceBundle.getBundle("i18n/describe");
 
-    public static final String PATH = "RuleConfFilePath";
-
     private TextFieldWithBrowseButton ruleConfFilePath;
     private JPanel rootPanel;
+    private JTextField jira_username;
+    private JPasswordField jira_password;
+    private JTextField jira_server;
+    private JComboBox scopeSelectedMode;
 
     @Override
     public String getDisplayName() {
@@ -69,29 +73,62 @@ public class Settings implements Configurable {
                 ruleConfFilePath.setText(path);
             }
         });
+
+        for (ConfigEntity.SelectedMode value : ConfigEntity.SelectedMode.values()) {
+            scopeSelectedMode.addItem(value);
+        }
         return rootPanel;
     }
 
     @Override
     public boolean isModified() {
         PropertiesComponent prop = PropertiesComponent.getInstance();
-        String storedPath = prop.getValue(PATH);
-        String uiPath = ruleConfFilePath.getText();
-        if (storedPath == null) {
-            storedPath = "";
+        String storedPath = showString(prop.getValue(ConfigEntity.PATH));
+        String storedJiraServerAddress = showString(prop.getValue(ConfigEntity.JIRA_SERVER_ADDRESS));
+        String storedJiraUserName = showString(prop.getValue(ConfigEntity.JIRA_USERNAME));
+        String storedJiraPassword = showString(prop.getValue(ConfigEntity.JIRA_PASSWORD));
+        ConfigEntity.SelectedMode storedSelectedMode = ConfigEntity.SelectedMode
+                .getByKey(showString(prop.getValue(ConfigEntity.SCOPE_SELECTED_ITEM_INPUT_VALUE)))
+                .orElse(ConfigEntity.SelectedMode.JIRAKEY);
+        String uiPath = showString(ruleConfFilePath.getText());
+        String uiAddress = showString(jira_server.getText());
+        String uiUserName = showString(jira_username.getText());
+        String uiPassword = showString(jira_password.getPassword());
+        ConfigEntity.SelectedMode uiSelectedMode = ConfigEntity.SelectedMode.JIRAKEY;
+        if (scopeSelectedMode.getSelectedIndex() != -1) {
+            uiSelectedMode = (ConfigEntity.SelectedMode) scopeSelectedMode.getSelectedItem();
         }
-        return !storedPath.equals(uiPath);
+        return !storedPath.equals(uiPath)
+                || !storedJiraServerAddress.equals(uiAddress)
+                || !storedJiraUserName.equals(uiUserName)
+                || uiSelectedMode != storedSelectedMode
+                || !storedJiraPassword.equals(uiPassword);
     }
 
+
     @Override
-    public void apply() throws ConfigurationException {
+    public void apply() {
         PropertiesComponent prop = PropertiesComponent.getInstance();
-        prop.setValue(PATH, ruleConfFilePath.getText());
+        prop.setValue(ConfigEntity.PATH, showString(ruleConfFilePath.getText()));
+        prop.setValue(ConfigEntity.JIRA_SERVER_ADDRESS, showString(jira_server.getText()));
+        prop.setValue(ConfigEntity.JIRA_USERNAME, showString(jira_username.getText()));
+        prop.setValue(ConfigEntity.JIRA_PASSWORD, showString(jira_password.getPassword()));
+        prop.setValue(ConfigEntity.JIRA_PASSWORD, showString(jira_password.getPassword()));
+        if (scopeSelectedMode.getSelectedIndex() != -1) {
+            prop.setValue(ConfigEntity.SCOPE_SELECTED_ITEM_INPUT_VALUE,
+                    ((ConfigEntity.SelectedMode) scopeSelectedMode.getSelectedItem()).getKey());
+        }
     }
 
     @Override
     public void reset() {
         PropertiesComponent prop = PropertiesComponent.getInstance();
-        ruleConfFilePath.setText(prop.getValue(PATH));
+        ruleConfFilePath.setText(prop.getValue(ConfigEntity.PATH));
+        jira_server.setText(prop.getValue(ConfigEntity.JIRA_SERVER_ADDRESS));
+        jira_username.setText(prop.getValue(ConfigEntity.JIRA_USERNAME));
+        jira_password.setText(prop.getValue(ConfigEntity.JIRA_PASSWORD));
+        scopeSelectedMode.setSelectedItem(ConfigEntity.SelectedMode
+                .getByKey(showString(prop.getValue(ConfigEntity.SCOPE_SELECTED_ITEM_INPUT_VALUE)))
+                .orElse(ConfigEntity.SelectedMode.JIRAKEY));
     }
 }
