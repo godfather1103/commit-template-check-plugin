@@ -32,7 +32,6 @@ public class CommitPanel {
             changeType.addItem(type);
         }
         configEntity = ConfigEntity.getEntity(PropertiesComponent.getInstance());
-        // TODO 待实现
         if (configEntity.isPresent() && configEntity.get().isOpenJira()) {
             ConfigEntity config = configEntity.get();
             try {
