@@ -24,7 +24,7 @@ import static com.godfather1103.util.StringUtils.showString;
  * @author 作者: godfa E-mail: chuchuanbao@gmail.com
  * 创建时间：2018/11/3 23:29
  * @version 1.0
- * @since
+ * @since 1.0
  */
 public class Settings implements Configurable {
 

@@ -13,7 +13,7 @@ import com.intellij.openapi.ui.Messages;
  * @author 作者: godfa E-mail: chuchuanbao@gmail.com
  * 创建时间：2018/11/3 23:36
  * @version 1.0
- * @since
+ * @since 1.0
  */
 public class NotificationCenter {
 

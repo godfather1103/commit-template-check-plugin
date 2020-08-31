@@ -42,6 +42,7 @@ public class JiraUtils {
      * @param userName 用户名
      * @param password 密码
      * @return 相关列表
+     * @throws Exception 查询列表过程中的异常
      * @author 作者: Jack Chu E-mail: chuchuanbao@gmail.com
      * 创建时间：2020-08-29 21:56
      */
