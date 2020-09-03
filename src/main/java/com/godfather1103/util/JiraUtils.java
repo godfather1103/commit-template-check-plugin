@@ -4,7 +4,6 @@ import com.godfather1103.entity.JiraEntity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,7 +11,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p>Title:        Godfather1103's Github</p>
@@ -26,12 +24,6 @@ import java.util.concurrent.TimeUnit;
  * Jira相关工具类
  */
 public class JiraUtils {
-
-    private final static OkHttpClient CLIENT = new OkHttpClient.Builder()
-            .callTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .build();
 
     private final static JsonParser PARSER = new JsonParser();
 
@@ -52,7 +44,7 @@ public class JiraUtils {
                 .url(url)
                 .addHeader("Authorization", generateAuth(userName, password))
                 .build();
-        String response = CLIENT.newCall(request).execute().body().string();
+        String response = HttpUtils.execute(request);
         JsonObject jsonObject = PARSER.parse(response).getAsJsonObject();
         JsonArray issues = jsonObject.get("issues").getAsJsonArray();
         List<JiraEntity> list = new ArrayList<>(issues.size());
@@ -63,6 +55,18 @@ public class JiraUtils {
             list.add(new JiraEntity(key, fields.get("summary").getAsString()));
         });
         return list;
+    }
+
+    /**
+     * 检测Jira服务器<BR>
+     *
+     * @param server 服务器地址
+     * @return 检测结果
+     * @author 作者: Jack Chu E-mail: chuchuanbao@gmail.com
+     * 创建时间：2020-09-03 13:13
+     */
+    public static boolean checkJiraServer(@NotNull String server) {
+        return HttpUtils.checkNetwork(server + "/rest/api/2/search").getFirst();
     }
 
     private static String generateAuth(@NotNull String userName, @NotNull String password) throws UnsupportedEncodingException {
