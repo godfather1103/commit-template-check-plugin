@@ -36,6 +36,9 @@ commit-template-idea-plugin:
 [Plugin](https://plugins.jetbrains.com/plugin/9861-git-commit-template)  
 [Code](https://github.com/MobileTribe/commit-template-idea-plugin)  
 
+### 更新日志（Changelog）
+[点击这里(click here)](chengelog.md)
+
 ### 捐赠(Donate)  
 你的馈赠将助力我更好的去贡献，谢谢！  
 Your gift will help me to contribute better, thank you!  
