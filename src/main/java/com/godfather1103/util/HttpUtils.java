@@ -1,6 +1,5 @@
 package com.godfather1103.util;
 
-import com.intellij.notification.NotificationType;
 import groovy.lang.Tuple2;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -38,7 +37,6 @@ public class HttpUtils {
             return response.body().string();
         } else {
             String msg = String.format(bundle.getString("network_error") + " Url[%s],Code[%s]", request.url(), response.code());
-            NotificationCenter.notice(msg, NotificationType.ERROR);
             throw new RuntimeException(msg);
         }
     }
@@ -56,7 +54,6 @@ public class HttpUtils {
             Response response = exec(request);
             return new Tuple2<>(response.isSuccessful(), response.code());
         } catch (IOException e) {
-            NotificationCenter.notice(e.getMessage(), NotificationType.ERROR);
             throw new RuntimeException(bundle.getString("network_error"));
         }
     }
