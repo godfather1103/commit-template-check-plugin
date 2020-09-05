@@ -4,15 +4,16 @@ import com.godfather1103.entity.JiraEntity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import okhttp3.OkHttpClient;
+import groovy.lang.Tuple2;
+import okhttp3.MediaType;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 /**
  * <p>Title:        Godfather1103's Github</p>
@@ -27,13 +28,24 @@ import java.util.concurrent.TimeUnit;
  */
 public class JiraUtils {
 
-    private final static OkHttpClient CLIENT = new OkHttpClient.Builder()
-            .callTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .build();
-
     private final static JsonParser PARSER = new JsonParser();
+
+    private final static MediaType JSON = MediaType.parse("application/json");
+
+    private final static ResourceBundle bundle = ResourceBundle.getBundle("i18n/describe");
+
+    public static Optional<Tuple2<String, String>> getSession(@NotNull String server, @NotNull String userName, @NotNull String password) throws Exception {
+        String url = server + "/rest/auth/1/session";
+        RequestBody body = buildUserInfoBody(userName, password);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        String response = HttpUtils.execute(request);
+        JsonObject jsonObject = PARSER.parse(response).getAsJsonObject();
+        JsonObject session = jsonObject.get("session").getAsJsonObject();
+        return Optional.ofNullable(new Tuple2<>(session.get("name").getAsString(), session.get("value").getAsString()));
+    }
 
     /**
      * 获取待处理的任务列表<BR>
@@ -48,11 +60,13 @@ public class JiraUtils {
      */
     public static List<JiraEntity> getToDoList(@NotNull String server, @NotNull String userName, @NotNull String password) throws Exception {
         String url = server + "/rest/api/2/search?jql=assignee=currentUser()+AND+resolution=Unresolved";
+        Tuple2<String, String> session = getSession(server, userName, password).orElseThrow(() -> new RuntimeException(bundle.getString("jira_login_error")));
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("Authorization", generateAuth(userName, password))
+                .addHeader("Content-Type", "application/json")
+                .addHeader("cookie", session.getFirst() + "=" + session.getSecond())
                 .build();
-        String response = CLIENT.newCall(request).execute().body().string();
+        String response = HttpUtils.execute(request);
         JsonObject jsonObject = PARSER.parse(response).getAsJsonObject();
         JsonArray issues = jsonObject.get("issues").getAsJsonArray();
         List<JiraEntity> list = new ArrayList<>(issues.size());
@@ -65,9 +79,22 @@ public class JiraUtils {
         return list;
     }
 
-    private static String generateAuth(@NotNull String userName, @NotNull String password) throws UnsupportedEncodingException {
-        String base = "Basic ";
-        String info = Base64.getEncoder().encodeToString((userName + ":" + password).getBytes("UTF-8"));
-        return base + info;
+    /**
+     * 检测Jira服务器<BR>
+     *
+     * @param server 服务器地址
+     * @return 检测结果
+     * @author 作者: Jack Chu E-mail: chuchuanbao@gmail.com
+     * 创建时间：2020-09-03 13:13
+     */
+    public static boolean checkJiraServer(@NotNull String server) {
+        return HttpUtils.checkNetwork(server + "/rest/api/2/search").getFirst();
+    }
+
+    private static RequestBody buildUserInfoBody(@NotNull String userName, @NotNull String password) {
+        JsonObject user = new JsonObject();
+        user.addProperty("username", userName);
+        user.addProperty("password", password);
+        return RequestBody.create(JSON, user.toString());
     }
 }

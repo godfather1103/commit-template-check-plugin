@@ -47,6 +47,15 @@ Your gift will help me to contribute better, thank you!
     <change-notes>
         <![CDATA[
         <ul>
+        1.7.8
+        <li>Fix NullPointerException when scope is not selected</li>
+        <li>修复Scope未选择时报空指针异常</li>
+        <li>Change the authentication method when obtaining the JIRA list</li>
+        <li>更改JIRA列表的获取时的认证方式</li>
+        <li>Fixed the bug of getting JIRA list from non-ascii characters account</li>
+        <li>修复非ascii码账户获取JIRA列表报错的问题</li>
+        </ul>
+        <ul>
         1.7.7
         <li>Support adding JIRA to scope</li>
         <li>支持添加jira信息到scope中</li>

@@ -1,6 +1,7 @@
 package com.godfather1103.ui;
 
 import com.godfather1103.entity.ConfigEntity;
+import com.godfather1103.util.JiraUtils;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
@@ -14,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.ResourceBundle;
 
+import static com.godfather1103.util.StringUtils.isEmpty;
 import static com.godfather1103.util.StringUtils.showString;
 
 /**
@@ -108,6 +110,20 @@ public class Settings implements Configurable {
 
     @Override
     public void apply() {
+        String server = showString(jira_server.getText());
+        if (!isEmpty(server) && !JiraUtils.checkJiraServer(server)) {
+            if (server.endsWith("/")) {
+                server = server.substring(0, server.length() - 1);
+                if (!JiraUtils.checkJiraServer(server)) {
+                    throw new RuntimeException("Jira Server[" + server + "] is Error!");
+                } else {
+                    jira_server.setText(server);
+                }
+            } else {
+                throw new RuntimeException("Jira Server[" + server + "] is Error!");
+            }
+        }
+
         PropertiesComponent prop = PropertiesComponent.getInstance();
         prop.setValue(ConfigEntity.PATH, showString(ruleConfFilePath.getText()));
         prop.setValue(ConfigEntity.JIRA_SERVER_ADDRESS, showString(jira_server.getText()));
