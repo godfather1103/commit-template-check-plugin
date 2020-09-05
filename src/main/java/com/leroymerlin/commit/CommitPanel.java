@@ -72,6 +72,9 @@ public class CommitPanel {
     }
 
     String getChangeScope() {
+        if (changeScope.getSelectedItem() == null) {
+            return "";
+        }
         if (changeScope.getSelectedIndex() == -1) {
             return changeScope.getSelectedItem().toString();
         } else {
