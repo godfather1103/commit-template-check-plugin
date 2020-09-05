@@ -47,6 +47,11 @@ Your gift will help me to contribute better, thank you!
     <change-notes>
         <![CDATA[
         <ul>
+        1.7.8
+        <li>Fix NullPointerException when scope is not selected</li>
+        <li>修复Scope未选择时报空指针异常</li>
+        </ul>
+        <ul>
         1.7.7
         <li>Support adding JIRA to scope</li>
         <li>支持添加jira信息到scope中</li>
