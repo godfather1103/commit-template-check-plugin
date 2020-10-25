@@ -22,8 +22,17 @@ import java.util.ResourceBundle;
 public class ConfigEntity {
 
     public enum SelectedMode {
+        /**
+         * 只填充jira Key
+         * */
         JIRAKEY(1, "jira_key_mode"),
+        /**
+         * 填充jira标题
+         * */
         JIRASUMMARY(2, "jira_summary_mode"),
+        /**
+         * 所见即所得
+         * */
         SEE(3, "see_mode");
 
         private final int key;

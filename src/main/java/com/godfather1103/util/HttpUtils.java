@@ -29,14 +29,14 @@ public class HttpUtils {
             .connectTimeout(30, TimeUnit.SECONDS)
             .build();
 
-    private final static ResourceBundle bundle = ResourceBundle.getBundle("i18n/describe");
+    private final static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("i18n/describe");
 
     public static String execute(Request request) throws IOException {
         Response response = exec(request);
         if (response.isSuccessful()) {
             return response.body().string();
         } else {
-            String msg = String.format(bundle.getString("network_error") + " Url[%s],Code[%s]", request.url(), response.code());
+            String msg = String.format(RESOURCE_BUNDLE.getString("network_error") + " Url[%s],Code[%s]", request.url(), response.code());
             throw new RuntimeException(msg);
         }
     }
@@ -54,7 +54,7 @@ public class HttpUtils {
             Response response = exec(request);
             return new Tuple2<>(response.isSuccessful(), response.code());
         } catch (IOException e) {
-            throw new RuntimeException(bundle.getString("network_error"));
+            throw new RuntimeException(RESOURCE_BUNDLE.getString("network_error"));
         }
     }
 }

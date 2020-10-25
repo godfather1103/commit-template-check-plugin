@@ -30,7 +30,7 @@
           <text resource-bundle="i18n/describe" key="jira_username"/>
         </properties>
       </component>
-      <component id="21cd1" class="javax.swing.JTextField" binding="jira_username">
+      <component id="21cd1" class="javax.swing.JTextField" binding="jiraUsername">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -48,7 +48,7 @@
           <text resource-bundle="i18n/describe" key="jira_password"/>
         </properties>
       </component>
-      <component id="3ab5c" class="javax.swing.JPasswordField" binding="jira_password">
+      <component id="3ab5c" class="javax.swing.JPasswordField" binding="jiraPassword">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -64,7 +64,7 @@
           <text resource-bundle="i18n/describe" key="jira_server"/>
         </properties>
       </component>
-      <component id="77f29" class="javax.swing.JTextField" binding="jira_server">
+      <component id="77f29" class="javax.swing.JTextField" binding="jiraServer">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>

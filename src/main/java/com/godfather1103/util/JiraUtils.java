@@ -27,12 +27,9 @@ import java.util.ResourceBundle;
  * Jira相关工具类
  */
 public class JiraUtils {
-
-    private final static JsonParser PARSER = new JsonParser();
-
     private final static MediaType JSON = MediaType.parse("application/json");
 
-    private final static ResourceBundle bundle = ResourceBundle.getBundle("i18n/describe");
+    private final static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("i18n/describe");
 
     public static Optional<Tuple2<String, String>> getSession(@NotNull String server, @NotNull String userName, @NotNull String password) throws Exception {
         String url = server + "/rest/auth/1/session";
@@ -42,7 +39,7 @@ public class JiraUtils {
                 .post(body)
                 .build();
         String response = HttpUtils.execute(request);
-        JsonObject jsonObject = PARSER.parse(response).getAsJsonObject();
+        JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
         JsonObject session = jsonObject.get("session").getAsJsonObject();
         return Optional.ofNullable(new Tuple2<>(session.get("name").getAsString(), session.get("value").getAsString()));
     }
@@ -60,14 +57,14 @@ public class JiraUtils {
      */
     public static List<JiraEntity> getToDoList(@NotNull String server, @NotNull String userName, @NotNull String password) throws Exception {
         String url = server + "/rest/api/2/search?jql=assignee=currentUser()+AND+resolution=Unresolved";
-        Tuple2<String, String> session = getSession(server, userName, password).orElseThrow(() -> new RuntimeException(bundle.getString("jira_login_error")));
+        Tuple2<String, String> session = getSession(server, userName, password).orElseThrow(() -> new RuntimeException(RESOURCE_BUNDLE.getString("jira_login_error")));
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Content-Type", "application/json")
                 .addHeader("cookie", session.getFirst() + "=" + session.getSecond())
                 .build();
         String response = HttpUtils.execute(request);
-        JsonObject jsonObject = PARSER.parse(response).getAsJsonObject();
+        JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
         JsonArray issues = jsonObject.get("issues").getAsJsonArray();
         List<JiraEntity> list = new ArrayList<>(issues.size());
         issues.forEach(item -> {

@@ -34,9 +34,9 @@ public class Settings implements Configurable {
 
     private TextFieldWithBrowseButton ruleConfFilePath;
     private JPanel rootPanel;
-    private JTextField jira_username;
-    private JPasswordField jira_password;
-    private JTextField jira_server;
+    private JTextField jiraUsername;
+    private JPasswordField jiraPassword;
+    private JTextField jiraServer;
     private JComboBox scopeSelectedMode;
 
     @Override
@@ -93,9 +93,9 @@ public class Settings implements Configurable {
                 .getByKey(showString(prop.getValue(ConfigEntity.SCOPE_SELECTED_ITEM_INPUT_VALUE)))
                 .orElse(ConfigEntity.SelectedMode.JIRAKEY);
         String uiPath = showString(ruleConfFilePath.getText());
-        String uiAddress = showString(jira_server.getText());
-        String uiUserName = showString(jira_username.getText());
-        String uiPassword = showString(jira_password.getPassword());
+        String uiAddress = showString(jiraServer.getText());
+        String uiUserName = showString(jiraUsername.getText());
+        String uiPassword = showString(jiraPassword.getPassword());
         ConfigEntity.SelectedMode uiSelectedMode = ConfigEntity.SelectedMode.JIRAKEY;
         if (scopeSelectedMode.getSelectedIndex() != -1) {
             uiSelectedMode = (ConfigEntity.SelectedMode) scopeSelectedMode.getSelectedItem();
@@ -110,14 +110,14 @@ public class Settings implements Configurable {
 
     @Override
     public void apply() {
-        String server = showString(jira_server.getText());
+        String server = showString(jiraServer.getText());
         if (!isEmpty(server) && !JiraUtils.checkJiraServer(server)) {
             if (server.endsWith("/")) {
                 server = server.substring(0, server.length() - 1);
                 if (!JiraUtils.checkJiraServer(server)) {
                     throw new RuntimeException("Jira Server[" + server + "] is Error!");
                 } else {
-                    jira_server.setText(server);
+                    jiraServer.setText(server);
                 }
             } else {
                 throw new RuntimeException("Jira Server[" + server + "] is Error!");
@@ -126,10 +126,10 @@ public class Settings implements Configurable {
 
         PropertiesComponent prop = PropertiesComponent.getInstance();
         prop.setValue(ConfigEntity.PATH, showString(ruleConfFilePath.getText()));
-        prop.setValue(ConfigEntity.JIRA_SERVER_ADDRESS, showString(jira_server.getText()));
-        prop.setValue(ConfigEntity.JIRA_USERNAME, showString(jira_username.getText()));
-        prop.setValue(ConfigEntity.JIRA_PASSWORD, showString(jira_password.getPassword()));
-        prop.setValue(ConfigEntity.JIRA_PASSWORD, showString(jira_password.getPassword()));
+        prop.setValue(ConfigEntity.JIRA_SERVER_ADDRESS, showString(jiraServer.getText()));
+        prop.setValue(ConfigEntity.JIRA_USERNAME, showString(jiraUsername.getText()));
+        prop.setValue(ConfigEntity.JIRA_PASSWORD, showString(jiraPassword.getPassword()));
+        prop.setValue(ConfigEntity.JIRA_PASSWORD, showString(jiraPassword.getPassword()));
         if (scopeSelectedMode.getSelectedIndex() != -1) {
             prop.setValue(ConfigEntity.SCOPE_SELECTED_ITEM_INPUT_VALUE,
                     ((ConfigEntity.SelectedMode) scopeSelectedMode.getSelectedItem()).getKey());
@@ -140,9 +140,9 @@ public class Settings implements Configurable {
     public void reset() {
         PropertiesComponent prop = PropertiesComponent.getInstance();
         ruleConfFilePath.setText(prop.getValue(ConfigEntity.PATH));
-        jira_server.setText(prop.getValue(ConfigEntity.JIRA_SERVER_ADDRESS));
-        jira_username.setText(prop.getValue(ConfigEntity.JIRA_USERNAME));
-        jira_password.setText(prop.getValue(ConfigEntity.JIRA_PASSWORD));
+        jiraServer.setText(prop.getValue(ConfigEntity.JIRA_SERVER_ADDRESS));
+        jiraUsername.setText(prop.getValue(ConfigEntity.JIRA_USERNAME));
+        jiraPassword.setText(prop.getValue(ConfigEntity.JIRA_PASSWORD));
         scopeSelectedMode.setSelectedItem(ConfigEntity.SelectedMode
                 .getByKey(showString(prop.getValue(ConfigEntity.SCOPE_SELECTED_ITEM_INPUT_VALUE)))
                 .orElse(ConfigEntity.SelectedMode.JIRAKEY));
