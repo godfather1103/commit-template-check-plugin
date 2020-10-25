@@ -1,3 +1,7 @@
+#### 1.7.9
+>移除过时的方法调用，升级IDEA版本到2020.2  
+>remove Deprecated method,update IDEA version to 2020.2  
+
 #### 1.7.8
 >修复Scope未选择时报空指针异常  
 >Fix NullPointerException when scope is not selected  
