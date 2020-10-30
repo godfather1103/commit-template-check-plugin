@@ -47,6 +47,13 @@ Your gift will help me to contribute better, thank you!
     <change-notes>
         <![CDATA[
         <ul>
+        1.7.9
+        <li>remove Deprecated method,update IDEA version to 2020.2</li>
+        <li>移除过时的方法调用，升级IDEA版本到2020.2</li>
+        <li>A prompt box is added to the item in the scope to display the long content</li>
+        <li>scope中item增加提示框，用于显示过长的内容</li>
+        </ul>
+        <ul>
         1.7.8
         <li>Fix NullPointerException when scope is not selected</li>
         <li>修复Scope未选择时报空指针异常</li>
@@ -88,7 +95,7 @@ Your gift will help me to contribute better, thank you!
         <action id="Commit.Button" class="com.leroymerlin.commit.CreateCommitAction"
                 text="Create commit message"
                 description="Create commit message"
-                icon="PluginIcons.LOAD">
+                icon="/icons/load.png">
             <add-to-group group-id="Vcs.MessageActionGroup" anchor="first"/>
         </action>
     </actions>

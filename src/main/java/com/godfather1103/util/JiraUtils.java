@@ -31,7 +31,8 @@ public class JiraUtils {
 
     private final static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("i18n/describe");
 
-    public static Optional<Tuple2<String, String>> getSession(@NotNull String server, @NotNull String userName, @NotNull String password) throws Exception {
+    public static Optional<Tuple2<String, String>> getSession(@NotNull String server, @NotNull String userName, @NotNull String password)
+            throws Exception {
         String url = server + "/rest/auth/1/session";
         RequestBody body = buildUserInfoBody(userName, password);
         Request request = new Request.Builder()
@@ -55,8 +56,29 @@ public class JiraUtils {
      * @author 作者: Jack Chu E-mail: chuchuanbao@gmail.com
      * 创建时间：2020-08-29 21:56
      */
-    public static List<JiraEntity> getToDoList(@NotNull String server, @NotNull String userName, @NotNull String password) throws Exception {
-        String url = server + "/rest/api/2/search?jql=assignee=currentUser()+AND+resolution=Unresolved";
+    public static List<JiraEntity> getToDoList(@NotNull String server, @NotNull String userName, @NotNull String password)
+            throws Exception {
+        return getToDoList(server, userName, password, "assignee=currentUser()+AND+resolution=Unresolved");
+    }
+
+    /**
+     * 获取待处理的任务列表<BR>
+     *
+     * @param server   服务器地址
+     * @param userName 用户名
+     * @param password 密码
+     * @param jql      相关检索参数
+     * @return 相关列表
+     * @throws Exception 查询列表过程中的异常
+     * @author 作者: Jack Chu E-mail: chuchuanbao@gmail.com
+     * 创建时间：2020-08-29 21:56
+     */
+    public static List<JiraEntity> getToDoList(@NotNull String server, @NotNull String userName, @NotNull String password, String jql)
+            throws Exception {
+        if (jql == null || jql.trim().length() == 0) {
+            jql = "assignee=currentUser()+AND+resolution=Unresolved";
+        }
+        String url = server + "/rest/api/2/search?jql=" + jql;
         Tuple2<String, String> session = getSession(server, userName, password).orElseThrow(() -> new RuntimeException(RESOURCE_BUNDLE.getString("jira_login_error")));
         Request request = new Request.Builder()
                 .url(url)

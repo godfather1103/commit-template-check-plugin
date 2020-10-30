@@ -9,6 +9,7 @@ import com.intellij.notification.NotificationType;
 import com.intellij.openapi.ui.DialogWrapper;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +36,13 @@ public class CommitPanel {
         if (configEntity.isPresent() && configEntity.get().isOpenJira()) {
             ConfigEntity config = configEntity.get();
             try {
-                List<JiraEntity> toDoList = JiraUtils.getToDoList(config.getJiraServer(), config.getJiraUserName(), config.getJiraPassword());
+                List<JiraEntity> toDoList = null;
+                try {
+                    toDoList = JiraUtils.getToDoList(config.getJiraServer(), config.getJiraUserName(), config.getJiraPassword());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    NotificationCenter.notice(ex.getMessage(), NotificationType.ERROR);
+                }
                 if (toDoList != null) {
                     toDoList.forEach(changeScope::addItem);
                 }
@@ -56,7 +63,26 @@ public class CommitPanel {
                         }
                     });
                 }
+                changeScope.setRenderer(
+                        new ListCellRenderer() {
+
+                            private ListCellRenderer renderer = changeScope.getRenderer();
+
+                            @Override
+                            public Component getListCellRendererComponent(JList list,
+                                                                          Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                                Component component = renderer.getListCellRendererComponent(
+                                        list, value, index, isSelected, cellHasFocus);
+                                if (component instanceof JLabel) {
+                                    JLabel label = (JLabel) component;
+                                    label.setToolTipText(label.getText());
+                                }
+                                return component;
+                            }
+                        }
+                );
             } catch (Exception exception) {
+                exception.printStackTrace();
                 NotificationCenter.notice(exception.getMessage(), NotificationType.ERROR);
             }
         }
