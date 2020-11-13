@@ -16,6 +16,8 @@ public class JiraUtilsTest {
         try {
             List<JiraEntity> r = JiraUtils.getToDoList(System.getenv("JIRA_SERVER"), System.getenv("JIRA_USERNAME"), System.getenv("JIRA_PASSWORD"));
             System.out.println(r.size());
+            r = JiraUtils.getToDoList(System.getenv("JIRA_SERVER"), System.getenv("JIRA_USERNAME"), System.getenv("JIRA_PASSWORD"),"project+=+XJRB+AND+resolution+=+Unresolved+AND+due+<=+1d+AND+assignee+in+(currentUser())");
+            System.out.println(r.size());
         } catch (Exception e) {
             e.printStackTrace();
             fail("getToDoList异常");
