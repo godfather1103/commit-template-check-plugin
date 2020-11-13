@@ -1,3 +1,7 @@
+#### 1.8.0
+>增加自定义JQL的操作  
+>custom jql  
+
 #### 1.7.9
 >移除过时的方法调用，升级IDEA版本到2020.2  
 >remove Deprecated method,update IDEA version to 2020.2  
