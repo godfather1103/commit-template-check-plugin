@@ -13,7 +13,7 @@ buildscript {
 apply plugin: 'org.jetbrains.intellij'
 
 group 'com.godfather1103'
-version '1.7.9'
+version '1.8.0'
 
 repositories {
     maven { url "https://maven.aliyun.com/nexus/content/groups/public" }

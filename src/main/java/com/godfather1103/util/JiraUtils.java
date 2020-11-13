@@ -58,7 +58,7 @@ public class JiraUtils {
      */
     public static List<JiraEntity> getToDoList(@NotNull String server, @NotNull String userName, @NotNull String password)
             throws Exception {
-        return getToDoList(server, userName, password, "assignee=currentUser()+AND+resolution=Unresolved");
+        return getToDoList(server, userName, password, null);
     }
 
     /**

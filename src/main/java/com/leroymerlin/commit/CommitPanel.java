@@ -38,7 +38,7 @@ public class CommitPanel {
             try {
                 List<JiraEntity> toDoList = null;
                 try {
-                    toDoList = JiraUtils.getToDoList(config.getJiraServer(), config.getJiraUserName(), config.getJiraPassword());
+                    toDoList = JiraUtils.getToDoList(config.getJiraServer(), config.getJiraUserName(), config.getJiraPassword(), config.getJiraJQL());
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     NotificationCenter.notice(ex.getMessage(), NotificationType.ERROR);

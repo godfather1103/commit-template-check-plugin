@@ -24,15 +24,15 @@ public class ConfigEntity {
     public enum SelectedMode {
         /**
          * 只填充jira Key
-         * */
+         */
         JIRAKEY(1, "jira_key_mode"),
         /**
          * 填充jira标题
-         * */
+         */
         JIRASUMMARY(2, "jira_summary_mode"),
         /**
          * 所见即所得
-         * */
+         */
         SEE(3, "see_mode");
 
         private final int key;
@@ -80,12 +80,14 @@ public class ConfigEntity {
     public static final String JIRA_SERVER_ADDRESS = "JIRA_SERVER_ADDRESS";
     public static final String JIRA_USERNAME = "JIRA_USERNAME";
     public static final String JIRA_PASSWORD = "JIRA_PASSWORD";
+    public static final String JIRA_JQL = "JIRA_JQL";
     public static final String SCOPE_SELECTED_ITEM_INPUT_VALUE = "SCOPE_SELECTED_ITEM_INPUT_VALUE";
 
     private String path;
     private String jiraServer;
     private String jiraUserName;
     private String jiraPassword;
+    private String jiraJQL;
     private SelectedMode selectedMode;
 
     public void initParam(@NotNull PropertiesComponent prop) {
@@ -93,6 +95,7 @@ public class ConfigEntity {
         this.jiraServer = StringUtils.showString(prop.getValue(JIRA_SERVER_ADDRESS));
         this.jiraUserName = StringUtils.showString(prop.getValue(JIRA_USERNAME));
         this.jiraPassword = StringUtils.showString(prop.getValue(JIRA_PASSWORD));
+        this.jiraJQL = StringUtils.showString(prop.getValue(JIRA_JQL));
         this.selectedMode = SelectedMode.getByKey(prop.getValue(SCOPE_SELECTED_ITEM_INPUT_VALUE)).orElse(SelectedMode.JIRAKEY);
     }
 
@@ -147,5 +150,13 @@ public class ConfigEntity {
 
     public void setSelectedMode(SelectedMode selectedMode) {
         this.selectedMode = selectedMode;
+    }
+
+    public String getJiraJQL() {
+        return jiraJQL;
+    }
+
+    public void setJiraJQL(String jiraJQL) {
+        this.jiraJQL = jiraJQL;
     }
 }
