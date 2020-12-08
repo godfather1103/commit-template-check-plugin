@@ -12,8 +12,8 @@ buildscript {
 
 apply plugin: 'org.jetbrains.intellij'
 
-group 'com.godfather1103'
-version '1.8.0'
+group pluginGroup
+version pluginVersion
 
 repositories {
     maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
@@ -34,10 +34,20 @@ dependencies {
 }
 
 intellij {
-    version 'IC-2020.2'
-    updateSinceUntilBuild false
-}
+    version System.getenv().getOrDefault('IDEA_VERSION', ideaVersion)
+    type ideaType
+    downloadSources Boolean.valueOf(sources)
+    sameSinceUntilBuild Boolean.valueOf(isEAP)
+    alternativeIdePath idePath
 
-publishPlugin {
-    token = System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken")
+    patchPluginXml {
+        sinceBuild pluginSinceBuild
+        untilBuild pluginUntilBuild
+    }
+
+    publishPlugin {
+        username publishUsername
+        token = System.getenv().getOrDefault("ORG_GRADLE_PROJECT_intellijPublishToken", publishToken)
+        channels publishChannel
+    }
 }
