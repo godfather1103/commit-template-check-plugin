@@ -26,6 +26,11 @@
 
 <p>该插件是在<a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>的基础上开发完成</p>
 
+### 赞助者(Sponsors)
+![IntelliJ IDEA](pic/jetbrains-100.png) ![IntelliJ IDEA](pic/intellij-idea-100.png)  
+感谢 [Jetbrains](https://www.jetbrains.com/?from=commit-template-check-plugin) 提供 [IntelliJ IDEA](https://www.jetbrains.com/idea/) 许可证！  
+Thanks to [Jetbrains](https://www.jetbrains.com/?from=commit-template-check-plugin) provided license for the [IntelliJ IDEA](https://www.jetbrains.com/?from=commit-template-check-plugin)!
+
 ### 附录(Annex)
 commit-template-check-plugin:  
 [Plugin](https://plugins.jetbrains.com/plugin/14822-git-commit-template-check/)  
