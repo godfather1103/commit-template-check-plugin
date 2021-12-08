@@ -58,11 +58,6 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
             }
 
             @Override
-            public void refresh() {
-
-            }
-
-            @Override
             public void saveState() {
                 checkFlag = checkBox.isSelected();
             }

@@ -1,3 +1,8 @@
+
+#### 1.8.1
+>移除过时的方法调用  
+>remove Deprecated method  
+
 #### 1.8.0
 >增加自定义JQL的操作  
 >custom jql  
