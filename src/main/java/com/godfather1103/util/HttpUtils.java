@@ -1,6 +1,6 @@
 package com.godfather1103.util;
 
-import groovy.lang.Tuple2;
+import io.vavr.Tuple2;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

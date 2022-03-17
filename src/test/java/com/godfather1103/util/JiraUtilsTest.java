@@ -1,7 +1,7 @@
 package com.godfather1103.util;
 
 import com.godfather1103.entity.JiraEntity;
-import groovy.lang.Tuple2;
+import io.vavr.Tuple2;
 import org.junit.Test;
 
 import java.util.List;

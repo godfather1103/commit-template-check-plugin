@@ -4,7 +4,7 @@ import com.godfather1103.entity.JiraEntity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import groovy.lang.Tuple2;
+import io.vavr.Tuple2;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -83,7 +83,7 @@ public class JiraUtils {
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Content-Type", "application/json")
-                .addHeader("cookie", session.getFirst() + "=" + session.getSecond())
+                .addHeader("cookie", session._1() + "=" + session._2())
                 .build();
         String response = HttpUtils.execute(request);
         JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
@@ -107,7 +107,7 @@ public class JiraUtils {
      * 创建时间：2020-09-03 13:13
      */
     public static boolean checkJiraServer(@NotNull String server) {
-        return HttpUtils.checkNetwork(server + "/rest/api/2/search").getFirst();
+        return HttpUtils.checkNetwork(server + "/rest/api/2/search")._1();
     }
 
     private static RequestBody buildUserInfoBody(@NotNull String userName, @NotNull String password) {
