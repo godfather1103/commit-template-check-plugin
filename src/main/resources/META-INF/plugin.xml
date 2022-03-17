@@ -49,6 +49,11 @@ Your gift will help me to contribute better, thank you!
     <change-notes>
         <![CDATA[
         <ul>
+        1.8.2
+        <li>remove Deprecated method</li>
+        <li>移除过时的方法调用</li>
+        </ul>
+        <ul>
         1.8.1
         <li>remove Deprecated method</li>
         <li>移除过时的方法调用</li>
