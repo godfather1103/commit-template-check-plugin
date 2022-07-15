@@ -51,7 +51,8 @@ Your gift will help me to contribute better, thank you!
 [PayPal](https://paypal.me/godfather1103?locale.x=zh_XC)  
 
 支付宝(Alipay)  
-<img src="https://s4.ax1x.com/2021/12/16/T9B04f.png" alt="支付宝" width="200" height="300" align="bottom" />   
-<img src="https://s4.ax1x.com/2021/12/16/T9BI8U.png" alt="支付宝" width="200" height="300" align="bottom" />   
+![支付宝](pic/hb-300.png)
+![支付宝](pic/Alipay-300.png)
+
 微信(WeChat)  
 ![微信支付](pic/WeChat-300.png)
