@@ -1,21 +1,12 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
-        maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
-        mavenCentral()
-    }
-    dependencies {
-        classpath "gradle.plugin.org.jetbrains.intellij.plugins:gradle-intellij-plugin:+"
-    }
+plugins {
+    id "org.jetbrains.intellij" version "0.4.26"
 }
-
-apply plugin: 'org.jetbrains.intellij'
 
 group pluginGroup
 version pluginVersion
 
 repositories {
+    mavenLocal()
     maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
     mavenCentral()
 }
@@ -25,13 +16,13 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    compile "com.github.godfather1103:commitrulecheck:1.2"
+    implementation "com.github.godfather1103:commitrulecheck:1.2"
     // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
-    compile 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'io.vavr:vavr:0.10.4'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 intellij {
