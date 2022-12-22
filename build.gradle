@@ -22,7 +22,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'io.vavr:vavr:0.10.4'
-    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation 'junit:junit:4.12'
 }
 
 intellij {
