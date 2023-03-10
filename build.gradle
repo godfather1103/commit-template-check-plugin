@@ -35,6 +35,99 @@ intellij {
     patchPluginXml {
         sinceBuild pluginSinceBuild
         untilBuild pluginUntilBuild
+        description """
+<h2>English Readme：</h2>
+<p>Create a commit message with the following template,It also provides the operation of checking the format of commit:</p>
+<pre>
+&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
+&lt;BLANK LINE&gt;
+&lt;body&gt;
+&lt;BLANK LINE&gt;
+&lt;footer&gt;
+</pre>
+<p>Starting from version 1.7.7, it supports adding JIRA information to scope.</p>
+<p>The plug-in is based on <a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a></p>
+
+<h2>中文说明：</h2>
+<p>该插件可以按照如下模板去生成commit的内容，并提供了检测commit的格式的操作:</p>
+<pre>
+&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
+&lt;BLANK LINE&gt;
+&lt;body&gt;
+&lt;BLANK LINE&gt;
+&lt;footer&gt;
+</pre>
+<p>从1.7.7版本开始支持添加jira信息到scope中。</p>
+<p>该插件是在<a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>的基础上开发完成</p>
+
+<h2>捐赠(Donate)</h2>
+<pre>
+你的馈赠将助力我更好的去贡献，谢谢！
+Your gift will help me to contribute better, thank you!
+
+<a href="https://paypal.me/godfather1103?locale.x=zh_XC">PayPal</a>
+
+支付宝(Alipay)
+<img src="https://plugins.jetbrains.com/files/17512/screenshot_434da076-114d-435c-a832-a86584ff29db" alt="支付宝" width="200" height="300" align="bottom" />
+<img src="https://plugins.jetbrains.com/files/17512/screenshot_96f642c8-e168-4141-a29c-78166dc61ac5" alt="支付宝" width="200" height="300" align="bottom" />
+
+微信(WeChat)
+<img src="https://plugins.jetbrains.com/files/17512/screenshot_da480b29-acfa-47dd-b9fe-d8c9ce1f624b" alt="微信支付" width="300" height="320" align="bottom" />
+</pre>
+        """
+        changeNotes """
+        <ul>
+        1.8.3
+        <li>修复配图</li>
+        <li>replace picture</li>
+        </ul>
+        <ul>
+        1.8.2
+        <li>remove Deprecated method</li>
+        <li>移除过时的方法调用</li>
+        </ul>
+        <ul>
+        1.8.1
+        <li>remove Deprecated method</li>
+        <li>移除过时的方法调用</li>
+        </ul>
+        <ul>
+        1.8.0
+        <li>custom jql</li>
+        <li>增加自定义JQL的操作</li>
+        </ul>
+        <ul>
+        1.7.9
+        <li>remove Deprecated method,update IDEA version to 2020.2</li>
+        <li>移除过时的方法调用，升级IDEA版本到2020.2</li>
+        <li>A prompt box is added to the item in the scope to display the long content</li>
+        <li>scope中item增加提示框，用于显示过长的内容</li>
+        </ul>
+        <ul>
+        1.7.8
+        <li>Fix NullPointerException when scope is not selected</li>
+        <li>修复Scope未选择时报空指针异常</li>
+        <li>Change the authentication method when obtaining the JIRA list</li>
+        <li>更改JIRA列表的获取时的认证方式</li>
+        <li>Fixed the bug of getting JIRA list from non-ascii characters account</li>
+        <li>修复非ascii码账户获取JIRA列表报错的问题</li>
+        </ul>
+        <ul>
+        1.7.7
+        <li>Support adding JIRA to scope</li>
+        <li>支持添加jira信息到scope中</li>
+        </ul>
+        <ul>
+        1.7.6
+        <li>Upgrade tool version</li>
+        <li>升级校验工具版本</li>
+        </ul>
+        <ul>
+        1.7.5
+        <li>Region adaptation for description information</li>
+        <li>描述信息的区域自适应</li>
+        </ul>
+        """
     }
 
     publishPlugin {
