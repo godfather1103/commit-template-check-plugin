@@ -1,4 +1,9 @@
 
+#### 1.8.3
+>修复配图  
+>replace picture
+>
+
 #### 1.8.2
 >移除过时的方法调用  
 >remove Deprecated method  
