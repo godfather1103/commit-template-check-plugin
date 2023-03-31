@@ -31,8 +31,6 @@ public class CommitPanel {
 
     private List<Font> fonts;
 
-    private static boolean isInit = false;
-
     private synchronized void initFonts() {
         String[] data = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         int style = longDescription.getFont().getStyle();
@@ -54,7 +52,6 @@ public class CommitPanel {
                 }
             }
         });
-        isInit = true;
     }
 
     CommitPanel(DialogWrapper dialog) {
@@ -115,9 +112,7 @@ public class CommitPanel {
                 NotificationCenter.notice(exception.getMessage(), NotificationType.ERROR);
             }
         }
-        if (!isInit) {
-            initFonts();
-        }
+        initFonts();
     }
 
     JPanel getMainPanel() {
