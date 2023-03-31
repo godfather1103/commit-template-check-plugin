@@ -1,3 +1,8 @@
+#### 1.8.4
+
+- 修复在部分IDEA中长描述输入框输入非ascii码字符显示为乱码的问题
+- Fixed the bug of input non-ascii characters into the long description input box in some IDEAs were displayed as garbled characters
+
 #### 1.8.3
 
 - 修复配图
