@@ -11,6 +11,7 @@ import com.intellij.openapi.ui.DialogWrapper;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,34 @@ public class CommitPanel {
     private JTextField breakingChanges;
 
     private Optional<ConfigEntity> configEntity;
+
+    private List<Font> fonts;
+
+    private static boolean isInit = false;
+
+    private synchronized void initFonts() {
+        String[] data = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+        int style = longDescription.getFont().getStyle();
+        int size = longDescription.getFont().getSize();
+        fonts = new ArrayList<>(data.length);
+        for (String s : data) {
+            fonts.add(new Font(s, style, size));
+        }
+        longDescription.addCaretListener(e -> {
+            JTextArea ja = (JTextArea) e.getSource();
+            String text = ja.getText();
+            Font jaFont = ja.getFont();
+            if (jaFont.canDisplayUpTo(text) != -1) {
+                for (Font font : fonts) {
+                    if (font.canDisplayUpTo(text) == -1) {
+                        ja.setFont(font);
+                        break;
+                    }
+                }
+            }
+        });
+        isInit = true;
+    }
 
     CommitPanel(DialogWrapper dialog) {
         for (ChangeType type : ChangeType.values()) {
@@ -85,6 +114,9 @@ public class CommitPanel {
                 exception.printStackTrace();
                 NotificationCenter.notice(exception.getMessage(), NotificationType.ERROR);
             }
+        }
+        if (!isInit) {
+            initFonts();
         }
     }
 
