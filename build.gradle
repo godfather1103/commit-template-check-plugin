@@ -35,7 +35,7 @@ intellij {
     patchPluginXml {
         sinceBuild pluginSinceBuild
         untilBuild pluginUntilBuild
-        description """
+        pluginDescription """
 <h2>English Readme：</h2>
 <p>Create a commit message with the following template,It also provides the operation of checking the format of commit:</p>
 <pre>
