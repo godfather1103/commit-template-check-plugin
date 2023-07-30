@@ -54,6 +54,10 @@ public class StringUtils {
      * 创建时间：2020-08-29 21:50
      */
     public static boolean isEmpty(String str) {
-        return str == null || str.trim().length() == 0;
+        return str == null || str.trim().isEmpty();
+    }
+
+    public static boolean isNotEmpty(String str) {
+        return !isEmpty(str);
     }
 }
