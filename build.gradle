@@ -77,6 +77,11 @@ Your gift will help me to contribute better, thank you!
         """
         changeNotes """
         <ul>
+        1.8.5
+        <li>优化代码</li>
+        <li>optimized code</li>
+        </ul>
+        <ul>
         1.8.4
         <li>修复在部分IDEA中长描述输入框输入非ascii码字符显示为乱码的问题</li>
         <li>Fixed the bug of input non-ascii characters into the long description input box in some IDEAs were displayed as garbled characters</li>

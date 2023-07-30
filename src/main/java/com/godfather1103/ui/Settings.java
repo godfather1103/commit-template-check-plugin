@@ -2,6 +2,7 @@ package com.godfather1103.ui;
 
 import com.godfather1103.entity.ConfigEntity;
 import com.godfather1103.util.JiraUtils;
+import com.godfather1103.util.StringUtils;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
@@ -13,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static com.godfather1103.util.StringUtils.isEmpty;
@@ -42,8 +44,9 @@ public class Settings implements Configurable {
 
     @Override
     public String getDisplayName() {
-        //"Git Commit Template Check Configuration";
-        return bundle.getString("display_name");
+        return Optional.ofNullable(bundle.getString("display_name"))
+                .filter(StringUtils::isNotEmpty)
+                .orElse("Git Commit Template Check Configuration");
     }
 
     @Nullable
