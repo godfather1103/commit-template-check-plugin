@@ -103,7 +103,10 @@ Your gift will help me to contribute better, thank you!
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <applicationConfigurable groupId="appearance" groupWeight="20" id="commit.temp.check.plus"
+        <applicationConfigurable groupId="appearance"
+                                 groupWeight="20"
+                                 id="commit.temp.check.plus"
+                                 displayName="Git Commit Template Check Configuration"
                                  instance="com.godfather1103.ui.Settings"/>
         <checkinHandlerFactory implementation="com.godfather1103.commit.CheckCommitMsgStyleFactory" order="first"/>
     </extensions>

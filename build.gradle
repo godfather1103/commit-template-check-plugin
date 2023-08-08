@@ -77,6 +77,11 @@ Your gift will help me to contribute better, thank you!
         """
         changeNotes """
         <ul>
+        1.8.6
+        <li>fix(<a href="https://github.com/godfather1103/commit-template-check-plugin/issues/17">issues-17</a>): XML中增加displayName属性值的设置</li>
+        <li>fix(<a href="https://github.com/godfather1103/commit-template-check-plugin/issues/17">issues-17</a>): Setting the value of the displayName attribute in XML</li>
+        </ul>
+        <ul>
         1.8.5
         <li>优化代码</li>
         <li>optimized code</li>
