@@ -1,13 +1,17 @@
-#### 1.8.6
+#### 1.8.7
 
 - 代码优化
-- refactor code
+- optimized code
 
-#### 1.8.5
+#### 1.8.6
 
 - XML中增加displayName属性值的设置
 - Setting the value of the displayName attribute in XML
 
+#### 1.8.5
+
+- 代码优化
+- optimized code
 
 #### 1.8.4
 
