@@ -1,3 +1,14 @@
+#### 1.8.6
+
+- 代码优化
+- refactor code
+
+#### 1.8.5
+
+- XML中增加displayName属性值的设置
+- Setting the value of the displayName attribute in XML
+
+
 #### 1.8.4
 
 - 修复在部分IDEA中长描述输入框输入非ascii码字符显示为乱码的问题
