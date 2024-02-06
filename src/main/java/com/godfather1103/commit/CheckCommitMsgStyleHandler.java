@@ -1,10 +1,9 @@
 package com.godfather1103.commit;
 
 
-import com.godfather1103.app.RuleCheckApp;
 import com.godfather1103.entity.ConfigEntity;
-import com.godfather1103.error.FailureException;
 import com.godfather1103.util.NotificationCenter;
+import com.godfather1103.util.RuleCheckApp;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.project.Project;
@@ -89,7 +88,7 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
                     new RuleCheckApp().check(sCommitMessage);
                 }
                 return ReturnResult.COMMIT;
-            } catch (FailureException ex) {
+            } catch (Exception ex) {
                 NotificationCenter.noticeWindows(bundle.getString("detection_result"), ex.getMessage(), NotificationCenter.TYPE_ERROR);
                 return ReturnResult.CANCEL;
             }
