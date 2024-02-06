@@ -76,6 +76,14 @@ Your gift will help me to contribute better, thank you!
         """
         changeNotes """
         <ul>
+        1.8.8
+        <li>添加logo</li>
+        <li>add logo</li>
+        <li>移除过时的方法调用</li>
+        <li>remove Deprecated method</li>
+        </ul>
+        <ul>
+        <ul>
         1.8.7
         <li>代码优化</li>
         <li>optimized code</li>

@@ -1,12 +1,11 @@
 package com.leroymerlin.commit;
 
+import com.godfather1103.util.StringUtils;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-
-import static org.apache.commons.lang.StringUtils.isBlank;
 
 /**
  * @author Damien Arrachequesne
@@ -44,14 +43,14 @@ public class CommitDialog extends DialogWrapper {
     }
 
     private String getBreakingChanges() {
-        if (isBlank(panel.getBreakingChanges())) {
+        if (StringUtils.isEmpty(panel.getBreakingChanges())) {
             return "";
         }
         return String.format("%n%n%s", "BREAKING CHANGE: " + panel.getBreakingChanges());
     }
 
     private String getClosedIssues() {
-        if (isBlank(panel.getClosedIssues())) {
+        if (StringUtils.isEmpty(panel.getClosedIssues())) {
             return "";
         }
         return String.format("%n%n%s", "Closes " + panel.getClosedIssues());
