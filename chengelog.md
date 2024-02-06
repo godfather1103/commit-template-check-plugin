@@ -1,3 +1,10 @@
+#### 1.8.8
+
+- 添加logo
+- add logo
+- 移除过时的方法调用
+- remove Deprecated method
+
 #### 1.8.7
 
 - 代码优化
