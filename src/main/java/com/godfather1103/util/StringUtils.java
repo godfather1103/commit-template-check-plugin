@@ -22,8 +22,12 @@ public class StringUtils {
      * 创建时间：2020-08-29 21:49
      */
     public static String showString(String str) {
+        return showString(str, "");
+    }
+
+    public static String showString(String str, String defaultValue) {
         if (isEmpty(str)) {
-            return "";
+            return defaultValue;
         } else {
             return str.trim();
         }
