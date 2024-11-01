@@ -1,12 +1,13 @@
 package com.godfather1103.ui;
 
 import com.godfather1103.entity.ConfigEntity;
+import com.godfather1103.settings.AppSettings;
 import com.godfather1103.util.JiraUtils;
 import com.godfather1103.util.StringUtils;
-import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
 import com.intellij.openapi.options.Configurable;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.TextBrowseFolderListener;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import org.jetbrains.annotations.Nullable;
@@ -14,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -32,6 +34,12 @@ import static com.godfather1103.util.StringUtils.showString;
  */
 public class Settings implements Configurable {
 
+    private Project project;
+
+    public Settings(Project project) {
+        this.project = project;
+    }
+
     ResourceBundle bundle = ResourceBundle.getBundle("i18n/describe");
 
     private TextFieldWithBrowseButton ruleConfFilePath;
@@ -44,7 +52,7 @@ public class Settings implements Configurable {
 
     @Override
     public String getDisplayName() {
-        return Optional.ofNullable(bundle.getString("display_name"))
+        return Optional.of(bundle.getString("display_name"))
                 .filter(StringUtils::isNotEmpty)
                 .orElse("Git Commit Template Check Configuration");
     }
@@ -88,14 +96,13 @@ public class Settings implements Configurable {
 
     @Override
     public boolean isModified() {
-        PropertiesComponent prop = PropertiesComponent.getInstance();
-        String storedPath = showString(prop.getValue(ConfigEntity.PATH));
-        String storedJiraServerAddress = showString(prop.getValue(ConfigEntity.JIRA_SERVER_ADDRESS));
-        String storedJiraUserName = showString(prop.getValue(ConfigEntity.JIRA_USERNAME));
-        String storedJiraPassword = showString(prop.getValue(ConfigEntity.JIRA_PASSWORD));
-        String storedJiraJQL = showString(prop.getValue(ConfigEntity.JIRA_JQL));
-        ConfigEntity.SelectedMode storedSelectedMode = ConfigEntity.SelectedMode
-                .getByKey(showString(prop.getValue(ConfigEntity.SCOPE_SELECTED_ITEM_INPUT_VALUE)))
+        AppSettings.State state = Objects.requireNonNull(AppSettings.getInstance(project).getState());
+        String storedPath = showString(state.getPath());
+        String storedJiraServerAddress = showString(state.getJiraServer());
+        String storedJiraUserName = showString(state.getJiraUserName());
+        String storedJiraPassword = showString(state.makeDecryptJiraPassword());
+        String storedJiraJQL = showString(state.getJiraJql());
+        ConfigEntity.SelectedMode storedSelectedMode = ConfigEntity.SelectedMode.getByKey(state.getSelectedMode())
                 .orElse(ConfigEntity.SelectedMode.JIRAKEY);
         String uiPath = showString(ruleConfFilePath.getText());
         String uiAddress = showString(jiraServer.getText());
@@ -130,30 +137,32 @@ public class Settings implements Configurable {
                 throw new RuntimeException("Jira Server[" + server + "] is Error!");
             }
         }
-
-        PropertiesComponent prop = PropertiesComponent.getInstance();
-        prop.setValue(ConfigEntity.PATH, showString(ruleConfFilePath.getText()));
-        prop.setValue(ConfigEntity.JIRA_SERVER_ADDRESS, showString(jiraServer.getText()));
-        prop.setValue(ConfigEntity.JIRA_USERNAME, showString(jiraUsername.getText()));
-        prop.setValue(ConfigEntity.JIRA_PASSWORD, showString(jiraPassword.getPassword()));
-        prop.setValue(ConfigEntity.JIRA_PASSWORD, showString(jiraPassword.getPassword()));
-        prop.setValue(ConfigEntity.JIRA_JQL, showString(jqlContent.getText()));
+        AppSettings.State state = Objects.requireNonNull(AppSettings.getInstance(project).getState());
+        state.setPath(showString(ruleConfFilePath.getText()));
+        state.setJiraServer(showString(jiraServer.getText()));
+        state.setJiraUserName(showString(jiraUsername.getText()));
+        state.setJiraPassword(showString(jiraPassword.getPassword()));
+        state.setJiraJql(showString(jqlContent.getText()));
         if (scopeSelectedMode.getSelectedIndex() != -1) {
-            prop.setValue(ConfigEntity.SCOPE_SELECTED_ITEM_INPUT_VALUE,
-                    ((ConfigEntity.SelectedMode) scopeSelectedMode.getSelectedItem()).getKey());
+            state.setSelectedMode(
+                    Optional.ofNullable((ConfigEntity.SelectedMode) scopeSelectedMode.getSelectedItem())
+                            .orElse(ConfigEntity.SelectedMode.JIRAKEY)
+                            .getKey()
+            );
         }
     }
 
     @Override
     public void reset() {
-        PropertiesComponent prop = PropertiesComponent.getInstance();
-        ruleConfFilePath.setText(prop.getValue(ConfigEntity.PATH));
-        jiraServer.setText(prop.getValue(ConfigEntity.JIRA_SERVER_ADDRESS));
-        jiraUsername.setText(prop.getValue(ConfigEntity.JIRA_USERNAME));
-        jiraPassword.setText(prop.getValue(ConfigEntity.JIRA_PASSWORD));
-        jqlContent.setText(prop.getValue(ConfigEntity.JIRA_JQL));
-        scopeSelectedMode.setSelectedItem(ConfigEntity.SelectedMode
-                .getByKey(showString(prop.getValue(ConfigEntity.SCOPE_SELECTED_ITEM_INPUT_VALUE)))
-                .orElse(ConfigEntity.SelectedMode.JIRAKEY));
+        AppSettings.State state = Objects.requireNonNull(AppSettings.getInstance(project).getState());
+        ruleConfFilePath.setText(state.getPath());
+        jiraServer.setText(state.getJiraServer());
+        jiraUsername.setText(state.getJiraUserName());
+        jiraPassword.setText(state.makeDecryptJiraPassword());
+        jqlContent.setText(state.getJiraJql());
+        scopeSelectedMode.setSelectedItem(
+                ConfigEntity.SelectedMode.getByKey(state.getSelectedMode())
+                        .orElse(ConfigEntity.SelectedMode.JIRAKEY)
+        );
     }
 }

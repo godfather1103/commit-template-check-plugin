@@ -2,17 +2,18 @@ package com.leroymerlin.commit;
 
 import com.godfather1103.entity.ConfigEntity;
 import com.godfather1103.entity.JiraEntity;
+import com.godfather1103.settings.AppSettings;
 import com.godfather1103.util.JiraUtils;
 import com.godfather1103.util.NotificationCenter;
-import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.notification.NotificationType;
-import com.intellij.openapi.ui.DialogWrapper;
+import com.intellij.openapi.project.Project;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -54,11 +55,11 @@ public class CommitPanel {
         });
     }
 
-    CommitPanel(DialogWrapper dialog) {
+    CommitPanel(Project project) {
         for (ChangeType type : ChangeType.values()) {
             changeType.addItem(type);
         }
-        configEntity = ConfigEntity.getEntity(PropertiesComponent.getInstance());
+        configEntity = ConfigEntity.getEntity(Objects.requireNonNull(AppSettings.getInstance(project).getState()));
         if (configEntity.isPresent() && configEntity.get().isOpenJira()) {
             ConfigEntity config = configEntity.get();
             try {

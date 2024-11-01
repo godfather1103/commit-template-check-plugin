@@ -1,10 +1,9 @@
 package com.godfather1103.entity;
 
+import com.godfather1103.settings.AppSettings;
 import com.godfather1103.util.StringUtils;
-import com.intellij.ide.util.PropertiesComponent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -35,28 +34,37 @@ public class ConfigEntity {
          */
         SEE(3, "see_mode");
 
-        private final int key;
+        private final Integer key;
         private final String value;
 
-        SelectedMode(int key, String value) {
+        final ResourceBundle bundle;
+
+        SelectedMode(Integer key, String value) {
             this.key = key;
             this.value = value;
+            bundle = ResourceBundle.getBundle("i18n/describe");
         }
 
-        public String getKey() {
-            return Integer.toString(key);
+        public Integer getKey() {
+            return key;
         }
 
-        public static Optional<SelectedMode> getByKey(String key) {
-            if (StringUtils.isEmpty(key)) {
-                return Optional.of(JIRAKEY);
+        /**
+         * getByKey<BR>
+         *
+         * @param key 参数
+         * @return 结果
+         * @author 作者: Jack Chu E-mail: chuchuanbao@gmail.com
+         * @date 创建时间：2024/11/1 18:39
+         */
+        public static Optional<SelectedMode> getByKey(Integer key) {
+            for (SelectedMode mode : SelectedMode.values()) {
+                if (mode.key.equals(key)) {
+                    return Optional.of(mode);
+                }
             }
-            return Arrays.stream(SelectedMode.values())
-                    .filter(item -> item.key == Integer.valueOf(key))
-                    .findFirst();
+            return Optional.of(JIRAKEY);
         }
-
-        ResourceBundle bundle = ResourceBundle.getBundle("i18n/describe");
 
         @Override
         public String toString() {
@@ -64,24 +72,22 @@ public class ConfigEntity {
         }
     }
 
-    private ConfigEntity(@NotNull PropertiesComponent prop) {
-        initParam(prop);
+    private ConfigEntity(@NotNull AppSettings.State state) {
+        this.path = StringUtils.showString(state.getPath());
+        this.jiraServer = StringUtils.showString(state.getJiraServer());
+        this.jiraUserName = StringUtils.showString(state.getJiraUserName());
+        this.jiraPassword = StringUtils.showString(state.makeDecryptJiraPassword());
+        this.jiraJQL = StringUtils.showString(state.getJiraJql());
+        this.selectedMode = SelectedMode.getByKey(state.getSelectedMode()).orElse(SelectedMode.JIRAKEY);
     }
 
-    public static Optional<ConfigEntity> getEntity(PropertiesComponent prop) {
-        if (prop == null) {
+    public static Optional<ConfigEntity> getEntity(AppSettings.State state) {
+        if (state == null) {
             return Optional.empty();
         } else {
-            return Optional.ofNullable(new ConfigEntity(prop));
+            return Optional.of(new ConfigEntity(state));
         }
     }
-
-    public static final String PATH = "RuleConfFilePath";
-    public static final String JIRA_SERVER_ADDRESS = "JIRA_SERVER_ADDRESS";
-    public static final String JIRA_USERNAME = "JIRA_USERNAME";
-    public static final String JIRA_PASSWORD = "JIRA_PASSWORD";
-    public static final String JIRA_JQL = "JIRA_JQL";
-    public static final String SCOPE_SELECTED_ITEM_INPUT_VALUE = "SCOPE_SELECTED_ITEM_INPUT_VALUE";
 
     private String path;
     private String jiraServer;
@@ -89,15 +95,6 @@ public class ConfigEntity {
     private String jiraPassword;
     private String jiraJQL;
     private SelectedMode selectedMode;
-
-    public void initParam(@NotNull PropertiesComponent prop) {
-        this.path = StringUtils.showString(prop.getValue(PATH));
-        this.jiraServer = StringUtils.showString(prop.getValue(JIRA_SERVER_ADDRESS));
-        this.jiraUserName = StringUtils.showString(prop.getValue(JIRA_USERNAME));
-        this.jiraPassword = StringUtils.showString(prop.getValue(JIRA_PASSWORD));
-        this.jiraJQL = StringUtils.showString(prop.getValue(JIRA_JQL));
-        this.selectedMode = SelectedMode.getByKey(prop.getValue(SCOPE_SELECTED_ITEM_INPUT_VALUE)).orElse(SelectedMode.JIRAKEY);
-    }
 
     public boolean isOpenJira() {
         if (StringUtils.isEmpty(jiraServer)) {

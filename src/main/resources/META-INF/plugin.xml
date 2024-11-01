@@ -97,23 +97,26 @@ Your gift will help me to contribute better, thank you!
         ]]>
     </change-notes>
 
-    <idea-version since-build="145.0"/>
+    <idea-version since-build="203.*"/>
 
     <depends>com.intellij.modules.vcs</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <applicationConfigurable groupId="appearance"
-                                 groupWeight="20"
-                                 id="commit.temp.check.plus"
-                                 displayName="Git Commit Template Check Configuration"
-                                 instance="com.godfather1103.ui.Settings"/>
+        <projectConfigurable
+                groupId="appearance"
+                groupWeight="20"
+                id="commit.temp.check.plus"
+                dynamic="true"
+                displayName="Git Commit Configuration"
+                provider="com.godfather1103.settings.AppSettingsConfigurableProvider"
+        />
         <checkinHandlerFactory implementation="com.godfather1103.commit.CheckCommitMsgStyleFactory" order="first"/>
     </extensions>
 
     <actions>
         <action id="Commit.Button" class="com.leroymerlin.commit.CreateCommitAction"
-                text="Create commit message"
+                text="Create Commit Message"
                 description="Create commit message"
                 icon="/icons/load.png">
             <add-to-group group-id="Vcs.MessageActionGroup" anchor="first"/>

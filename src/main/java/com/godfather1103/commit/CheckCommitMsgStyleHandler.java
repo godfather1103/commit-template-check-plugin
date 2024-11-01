@@ -1,10 +1,9 @@
 package com.godfather1103.commit;
 
 
-import com.godfather1103.entity.ConfigEntity;
+import com.godfather1103.settings.AppSettings;
 import com.godfather1103.util.NotificationCenter;
 import com.godfather1103.util.RuleCheckApp;
-import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vcs.CheckinProjectPanel;
@@ -16,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -31,15 +31,18 @@ import java.util.ResourceBundle;
  */
 public class CheckCommitMsgStyleHandler extends CheckinHandler {
 
-    ResourceBundle bundle = ResourceBundle.getBundle("i18n/describe");
+    private final ResourceBundle bundle;
 
-    private Project myProject;
-    private CheckinProjectPanel myCheckinPanel;
+    private final Project myProject;
+
+    private final CheckinProjectPanel myCheckinPanel;
+
     private static boolean checkFlag = true;
 
     CheckCommitMsgStyleHandler(Project myProject, CheckinProjectPanel myCheckinPanel) {
         this.myProject = myProject;
         this.myCheckinPanel = myCheckinPanel;
+        this.bundle = ResourceBundle.getBundle("i18n/describe");
     }
 
     @Nullable
@@ -73,8 +76,8 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
     public ReturnResult beforeCheckin() {
         String basePath = myProject.getBasePath();
         String filePath = basePath + "/check.commit.style.rule.json";
-        PropertiesComponent prop = PropertiesComponent.getInstance();
-        String path = prop.getValue(ConfigEntity.PATH);
+        AppSettings.State state = Objects.requireNonNull(AppSettings.getInstance(myProject).getState());
+        String path = state.getPath();
         String sCommitMessage = myCheckinPanel.getCommitMessage();
         if (!checkFlag) {
             return ReturnResult.COMMIT;
