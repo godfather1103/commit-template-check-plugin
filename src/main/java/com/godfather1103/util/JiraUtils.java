@@ -75,7 +75,7 @@ public class JiraUtils {
      */
     public static List<JiraEntity> getToDoList(@NotNull String server, @NotNull String userName, @NotNull String password, String jql)
             throws Exception {
-        if (jql == null || jql.trim().length() == 0) {
+        if (jql == null || jql.trim().isEmpty()) {
             jql = "assignee=currentUser()+AND+resolution=Unresolved";
         }
         String url = server + "/rest/api/2/search?jql=" + jql;
