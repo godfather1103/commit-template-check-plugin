@@ -1,7 +1,9 @@
 package com.godfather1103.entity;
 
 import com.godfather1103.settings.AppSettings;
+import com.godfather1103.util.AESUtils;
 import com.godfather1103.util.StringUtils;
+import io.vavr.control.Try;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -76,7 +78,7 @@ public class ConfigEntity {
         this.path = StringUtils.showString(state.getPath());
         this.jiraServer = StringUtils.showString(state.getJiraServer());
         this.jiraUserName = StringUtils.showString(state.getJiraUserName());
-        this.jiraPassword = StringUtils.showString(state.getJiraPassword());
+        this.jiraPassword = Try.of(() -> AESUtils.decrypt(state.getJiraPassword())).getOrNull();
         this.jiraJQL = StringUtils.showString(state.getJiraJql());
         this.selectedMode = SelectedMode.getByKey(state.getSelectedMode()).orElse(SelectedMode.JIRAKEY);
     }

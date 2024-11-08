@@ -2,6 +2,7 @@ package com.godfather1103.ui;
 
 import com.godfather1103.entity.ConfigEntity;
 import com.godfather1103.settings.AppSettings;
+import com.godfather1103.util.AESUtils;
 import com.godfather1103.util.JiraUtils;
 import com.godfather1103.util.StringUtils;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
@@ -10,6 +11,7 @@ import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.TextBrowseFolderListener;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
+import io.vavr.control.Try;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
@@ -108,7 +110,7 @@ public class Settings implements Configurable {
         String uiPath = showString(ruleConfFilePath.getText());
         String uiAddress = showString(jiraServer.getText());
         String uiUserName = showString(jiraUsername.getText());
-        String uiPassword = showString(jiraPassword.getPassword());
+        String uiPassword = Try.of(() -> AESUtils.encrypt(showString(jiraPassword.getPassword()))).getOrNull();
         String uiJQL = showString(jqlContent.getText());
         ConfigEntity.SelectedMode uiSelectedMode = ConfigEntity.SelectedMode.JIRAKEY;
         if (scopeSelectedMode.getSelectedIndex() != -1) {
@@ -142,7 +144,7 @@ public class Settings implements Configurable {
         state.setPath(showString(ruleConfFilePath.getText()));
         state.setJiraServer(showString(jiraServer.getText()));
         state.setJiraUserName(showString(jiraUsername.getText()));
-        state.setJiraPassword(showString(jiraPassword.getPassword()));
+        state.setJiraPassword(Try.of(() -> AESUtils.encrypt(showString(jiraPassword.getPassword()))).getOrNull());
         state.setJiraJql(showString(jqlContent.getText()));
         if (scopeSelectedMode.getSelectedIndex() != -1) {
             state.setSelectedMode(
@@ -159,7 +161,7 @@ public class Settings implements Configurable {
         ruleConfFilePath.setText(state.getPath());
         jiraServer.setText(state.getJiraServer());
         jiraUsername.setText(state.getJiraUserName());
-        jiraPassword.setText(state.getJiraPassword());
+        jiraPassword.setText(Try.of(() -> showString(AESUtils.decrypt(state.getJiraPassword()))).getOrNull());
         jqlContent.setText(state.getJiraJql());
         scopeSelectedMode.setSelectedItem(
                 ConfigEntity.SelectedMode.getByKey(state.getSelectedMode())
