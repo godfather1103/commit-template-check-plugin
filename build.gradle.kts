@@ -96,11 +96,9 @@ Your gift will help me to contribute better, thank you!
         changeNotes.set(
             """
         <ul>
-        1.8.8
-        <li>添加logo</li>
-        <li>add logo</li>
-        <li>移除过时的方法调用</li>
-        <li>remove Deprecated method</li>
+        2.0
+        <li>将配置级别从全局更改为项目</li>
+        <li>change the configuration level from global to project</li>
         </ul>
         """.trimIndent()
         )

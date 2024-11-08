@@ -34,13 +34,14 @@ import static com.godfather1103.util.StringUtils.showString;
  */
 public class Settings implements Configurable {
 
-    private Project project;
+    private final Project project;
+
+    private final ResourceBundle bundle;
 
     public Settings(Project project) {
         this.project = project;
+        this.bundle = ResourceBundle.getBundle("i18n/describe");
     }
-
-    ResourceBundle bundle = ResourceBundle.getBundle("i18n/describe");
 
     private TextFieldWithBrowseButton ruleConfFilePath;
     private JPanel rootPanel;
@@ -54,7 +55,7 @@ public class Settings implements Configurable {
     public String getDisplayName() {
         return Optional.of(bundle.getString("display_name"))
                 .filter(StringUtils::isNotEmpty)
-                .orElse("Git Commit Template Check Configuration");
+                .orElse("Git Commit Configuration");
     }
 
     @Nullable
