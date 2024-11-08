@@ -1,13 +1,10 @@
 package com.godfather1103.settings;
 
-import com.godfather1103.util.AESUtils;
-import com.godfather1103.util.StringUtils;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.project.Project;
-import io.vavr.control.Try;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -53,8 +50,6 @@ public final class AppSettings implements PersistentStateComponent<AppSettings.S
         private String jiraJql;
         private Integer selectedMode;
 
-        private static final String ENC_KEY = "1qaz!@#$2wsx%^&*";
-
         public String getPath() {
             return path;
         }
@@ -83,14 +78,8 @@ public final class AppSettings implements PersistentStateComponent<AppSettings.S
             return jiraPassword;
         }
 
-        public String makeDecryptJiraPassword() {
-            return Try.of(() -> AESUtils.decrypt(getJiraPassword(), ENC_KEY)).getOrNull();
-        }
-
         public void setJiraPassword(String jiraPassword) {
-            if (StringUtils.isNotEmpty(jiraPassword)) {
-                this.jiraPassword = Try.of(() -> AESUtils.encrypt(jiraPassword, ENC_KEY)).getOrNull();
-            }
+            this.jiraPassword = jiraPassword;
         }
 
         public String getJiraJql() {

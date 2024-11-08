@@ -76,7 +76,7 @@ public class ConfigEntity {
         this.path = StringUtils.showString(state.getPath());
         this.jiraServer = StringUtils.showString(state.getJiraServer());
         this.jiraUserName = StringUtils.showString(state.getJiraUserName());
-        this.jiraPassword = StringUtils.showString(state.makeDecryptJiraPassword());
+        this.jiraPassword = StringUtils.showString(state.getJiraPassword());
         this.jiraJQL = StringUtils.showString(state.getJiraJql());
         this.selectedMode = SelectedMode.getByKey(state.getSelectedMode()).orElse(SelectedMode.JIRAKEY);
     }

@@ -101,7 +101,7 @@ public class Settings implements Configurable {
         String storedPath = showString(state.getPath());
         String storedJiraServerAddress = showString(state.getJiraServer());
         String storedJiraUserName = showString(state.getJiraUserName());
-        String storedJiraPassword = showString(state.makeDecryptJiraPassword());
+        String storedJiraPassword = showString(state.getJiraPassword());
         String storedJiraJQL = showString(state.getJiraJql());
         ConfigEntity.SelectedMode storedSelectedMode = ConfigEntity.SelectedMode.getByKey(state.getSelectedMode())
                 .orElse(ConfigEntity.SelectedMode.JIRAKEY);
@@ -159,7 +159,7 @@ public class Settings implements Configurable {
         ruleConfFilePath.setText(state.getPath());
         jiraServer.setText(state.getJiraServer());
         jiraUsername.setText(state.getJiraUserName());
-        jiraPassword.setText(state.makeDecryptJiraPassword());
+        jiraPassword.setText(state.getJiraPassword());
         jqlContent.setText(state.getJiraJql());
         scopeSelectedMode.setSelectedItem(
                 ConfigEntity.SelectedMode.getByKey(state.getSelectedMode())
