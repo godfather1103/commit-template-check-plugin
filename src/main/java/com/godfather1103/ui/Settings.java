@@ -52,6 +52,7 @@ public class Settings implements Configurable {
     private JTextField jiraServer;
     private JComboBox scopeSelectedMode;
     private JTextField jqlContent;
+    private JCheckBox updateToSystem;
 
     @Override
     public String getDisplayName() {
@@ -104,24 +105,33 @@ public class Settings implements Configurable {
         String storedJiraServerAddress = showString(state.getJiraServer());
         String storedJiraUserName = showString(state.getJiraUserName());
         String storedJiraPassword = showString(state.getJiraPassword());
-        String storedJiraJQL = showString(state.getJiraJql());
+        String storedJiraJql = showString(state.getJiraJql());
         ConfigEntity.SelectedMode storedSelectedMode = ConfigEntity.SelectedMode.getByKey(state.getSelectedMode())
                 .orElse(ConfigEntity.SelectedMode.JIRAKEY);
         String uiPath = showString(ruleConfFilePath.getText());
         String uiAddress = showString(jiraServer.getText());
         String uiUserName = showString(jiraUsername.getText());
         String uiPassword = Try.of(() -> AESUtils.encrypt(showString(jiraPassword.getPassword()))).getOrNull();
-        String uiJQL = showString(jqlContent.getText());
+        String uiJql = showString(jqlContent.getText());
         ConfigEntity.SelectedMode uiSelectedMode = ConfigEntity.SelectedMode.JIRAKEY;
         if (scopeSelectedMode.getSelectedIndex() != -1) {
             uiSelectedMode = (ConfigEntity.SelectedMode) scopeSelectedMode.getSelectedItem();
         }
-        return !storedPath.equals(uiPath)
-                || !storedJiraServerAddress.equals(uiAddress)
-                || !storedJiraUserName.equals(uiUserName)
-                || !storedJiraJQL.equals(uiJQL)
-                || uiSelectedMode != storedSelectedMode
-                || !storedJiraPassword.equals(uiPassword);
+        if (updateToSystem.isSelected()) {
+            return true;
+        } else if (!storedPath.equals(uiPath)) {
+            return true;
+        } else if (!storedJiraServerAddress.equals(uiAddress)) {
+            return true;
+        } else if (!storedJiraUserName.equals(uiUserName)) {
+            return true;
+        } else if (!storedJiraJql.equals(uiJql)) {
+            return true;
+        } else if (uiSelectedMode != storedSelectedMode) {
+            return true;
+        } else {
+            return !storedJiraPassword.equals(uiPassword);
+        }
     }
 
 
@@ -153,6 +163,13 @@ public class Settings implements Configurable {
                             .getKey()
             );
         }
+        state.setUseSystemConfig(project.isDefault());
+        state.setTemplateProject(project.isDefault());
+        // 默认工程强制更新全局信息
+        if (updateToSystem.isSelected() || project.isDefault()) {
+            state.applyToSystem();
+            updateToSystem.setSelected(false);
+        }
     }
 
     @Override
@@ -167,5 +184,6 @@ public class Settings implements Configurable {
                 ConfigEntity.SelectedMode.getByKey(state.getSelectedMode())
                         .orElse(ConfigEntity.SelectedMode.JIRAKEY)
         );
+        updateToSystem.setSelected(false);
     }
 }
