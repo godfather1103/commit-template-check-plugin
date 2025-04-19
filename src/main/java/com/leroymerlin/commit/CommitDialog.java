@@ -57,7 +57,7 @@ public class CommitDialog extends DialogWrapper {
     }
 
     private static String breakLines(String input, int maxLineLength) {
-        String[] tokens = input.split("\\s+");
+        String[] tokens = input.split(" ");
         StringBuilder output = new StringBuilder(input.length());
         int lineLength = 0;
         for (int i = 0; i < tokens.length; i++) {
