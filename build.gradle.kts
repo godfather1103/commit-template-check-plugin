@@ -95,11 +95,13 @@ Your gift will help me to contribute better, thank you!
         )
         changeNotes.set(
             """
-        <ul>
-        2.0
-        <li>将配置级别从全局更改为项目</li>
-        <li>change the configuration level from global to project</li>
-        </ul>
+            <ul>
+            2.1
+            <li>feat(settings): 增加将配置更新到系统默认的功能</li>
+            <li>feat(settings): Add the function to update the configuration to the system default</li>
+            <li>perf(): 优化代码中字符串分割正则表达式</li>
+            <li>perf(): Optimize the regular expression for string splitting in the code</li>
+            </ul>    
         """.trimIndent()
         )
     }
