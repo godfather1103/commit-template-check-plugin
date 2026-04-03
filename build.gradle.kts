@@ -75,6 +75,7 @@ intellijPlatform {
             sinceBuild = "${yearVersion}${noVersion}.0"
         }
         description.set("""
+commit-template-check-plugin
 <h2>English Readme：</h2>
 <p>Create a commit message with the following template,It also provides the operation of checking the format of commit:</p>
 <pre>
