@@ -4,6 +4,7 @@ package com.godfather1103.commit;
 import com.godfather1103.settings.AppSettings;
 import com.godfather1103.util.NotificationCenter;
 import com.godfather1103.util.RuleCheckApp;
+import com.godfather1103.util.StringUtils;
 import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vcs.CheckinProjectPanel;
@@ -85,7 +86,7 @@ public class CheckCommitMsgStyleHandler extends CheckinHandler {
             try {
                 if (new File(filePath).exists()) {
                     new RuleCheckApp(filePath).check(sCommitMessage);
-                } else if (path != null && new File(path).exists()) {
+                } else if (StringUtils.isNotEmpty(path) && new File(path).exists()) {
                     new RuleCheckApp(path).check(sCommitMessage);
                 } else {
                     new RuleCheckApp().check(sCommitMessage);
