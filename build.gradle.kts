@@ -1,31 +1,7 @@
 plugins {
-    id("org.jetbrains.intellij") version "1.13.3"
+    id("org.jetbrains.intellij.platform") version "2.11.0"
 }
 
-group = "${property("pluginGroup")}"
-version = "${property("pluginVersion")}"
-
-repositories {
-    mavenLocal()
-    maven { url = uri("https://maven.aliyun.com/nexus/content/groups/public") }
-    mavenCentral()
-}
-
-java.sourceCompatibility = JavaVersion.VERSION_11
-java.targetCompatibility = JavaVersion.VERSION_11
-
-tasks.compileJava {
-    options.encoding = "UTF-8"
-}
-
-dependencies {
-    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
-    implementation("com.squareup.okhttp3:okhttp:3.12.0")
-    // https://mvnrepository.com/artifact/com.google.code.gson/gson
-    implementation("com.google.code.gson:gson:2.10")
-    implementation("io.vavr:vavr:0.10.4")
-    testImplementation("junit:junit:4.13.2")
-}
 val ideaVersion = System.getProperty(
     "ideaVersion",
     property("ideaVersion") as String
@@ -40,19 +16,65 @@ val yearVersion = first.let { if (it > 2000) it % 100 else it / 10 }
 val noVersion = if (first < 2000) first % 10 else ideaVersion
     .substring(ideaVersion.indexOf(".") + 1)
     .toInt()
-intellij {
-    version.set(ideaVersion)
-    type.set(ideaType)
-    updateSinceUntilBuild.set(false)
-    pluginName.set("${property("pluginName")}")
-    sandboxDir.set("idea-sandbox/${ideaVersion}")
+
+group = "${property("pluginGroup")}"
+version = "${property("pluginVersion")}"
+
+repositories {
+    mavenLocal()
+    maven { url = uri("https://maven.aliyun.com/nexus/content/groups/public") }
+    mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
-tasks {
-    patchPluginXml {
-        sinceBuild.set("${yearVersion}${noVersion}.0")
-        pluginId.set("commit-template-check-plugin")
-        pluginDescription.set(
-            """
+
+java.sourceCompatibility = JavaVersion.VERSION_17
+java.targetCompatibility = JavaVersion.VERSION_17
+
+tasks.compileJava {
+    options.encoding = "UTF-8"
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+    implementation("com.squareup.okhttp3:okhttp:4.9.2")
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation("com.google.code.gson:gson:2.10")
+    implementation("io.vavr:vavr:0.10.4")
+    testImplementation("junit:junit:4.13.2")
+    intellijPlatform {
+        intellijIdea(ideaVersion)
+        testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
+    }
+}
+
+
+
+intellijPlatform {
+    sandboxContainer.set(file("idea-sandbox/${ideaVersion}"))
+    signing {
+        cliPath = file("${project.projectDir.absolutePath}/tools/marketplace-zip-signer-cli.jar")
+        project.findProperty("signing.certificateChainFile")?.let {
+            certificateChainFile.set(file(it as String))
+        }
+        project.findProperty("signing.privateKeyFile")?.let {
+            privateKeyFile.set(file(it as String))
+        }
+        project.findProperty("signing.password")?.let {
+            password.set(it as String)
+        }
+    }
+    publishing {
+        project.findProperty("ORG_GRADLE_PROJECT_intellijPublishToken")?.let {
+            token.set(it as String)
+        }
+    }
+    pluginConfiguration {
+        ideaVersion {
+            sinceBuild = "${yearVersion}${noVersion}.0"
+        }
+        description.set("""
 <h2>English Readme：</h2>
 <p>Create a commit message with the following template,It also provides the operation of checking the format of commit:</p>
 <pre>
@@ -91,49 +113,13 @@ Your gift will help me to contribute better, thank you!
 微信(WeChat)
 <img src="https://plugins.jetbrains.com/files/17512/screenshot_da480b29-acfa-47dd-b9fe-d8c9ce1f624b" alt="微信支付" width="300" height="320" align="bottom" />
 </pre>
-        """.trimIndent()
-        )
-        changeNotes.set(
-            """
+        """.trimIndent())
+        changeNotes = """
             <ul>
-            2.1
-            <li>feat(settings): 增加将配置更新到系统默认的功能</li>
-            <li>feat(settings): Add the function to update the configuration to the system default</li>
-            <li>perf(): 优化代码中字符串分割正则表达式</li>
-            <li>perf(): Optimize the regular expression for string splitting in the code</li>
-            </ul>    
-        """.trimIndent()
-        )
-    }
-
-    publishPlugin {
-        project.findProperty("ORG_GRADLE_PROJECT_intellijPublishToken")?.let {
-            token.set(it as String)
-        }
-        if (publishChannel.isNotEmpty()) {
-            channels.set(listOf(publishChannel))
-        } else if (ideaVersion.contains("EAP-SNAPSHOT")) {
-            channels.set(listOf("beta"))
-        }
-    }
-
-    signPlugin {
-        project.findProperty("signing.certificateChainFile")?.let {
-            certificateChainFile.set(file(it as String))
-        }
-        project.findProperty("signing.privateKeyFile")?.let {
-            privateKeyFile.set(file(it as String))
-        }
-        project.findProperty("signing.password")?.let {
-            password.set(it as String)
-        }
-    }
-
-    initializeIntelliJPlugin {
-        offline.set(true)
-    }
-
-    downloadZipSigner {
-        cliPath.set("${project.projectDir.absolutePath}/tools/marketplace-zip-signer-cli.jar")
+            2.2
+            <li>feat(2026.1): 支持2026.1</li>
+            <li>feat(2026.1): Support 2026.1</li>
+            </ul>   
+    """.trimIndent()
     }
 }
