@@ -225,3 +225,4 @@ fabric.properties
 
 idea-sandbox/**
 !tools/*.jar
+.intellijPlatform/**
