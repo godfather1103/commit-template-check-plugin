@@ -74,7 +74,7 @@ intellijPlatform {
         ideaVersion {
             sinceBuild = "${yearVersion}${noVersion}.0"
         }
-        changeNotes = """
+        description.set("""
 <h2>English Readme：</h2>
 <p>Create a commit message with the following template,It also provides the operation of checking the format of commit:</p>
 <pre>
@@ -113,6 +113,13 @@ Your gift will help me to contribute better, thank you!
 微信(WeChat)
 <img src="https://plugins.jetbrains.com/files/17512/screenshot_da480b29-acfa-47dd-b9fe-d8c9ce1f624b" alt="微信支付" width="300" height="320" align="bottom" />
 </pre>
+        """.trimIndent())
+        changeNotes = """
+            <ul>
+            2.2
+            <li>feat(2026.1): 支持2026.1</li>
+            <li>feat(2026.1): Support 2026.1</li>
+            </ul>   
     """.trimIndent()
     }
 }
