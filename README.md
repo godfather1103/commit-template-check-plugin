@@ -42,7 +42,7 @@ commit-template-idea-plugin:
 [Code](https://github.com/MobileTribe/commit-template-idea-plugin)  
 
 ### 更新日志（Changelog）
-[点击这里(click here)](chengelog.md)
+[点击这里(click here)](CHANGELOG.md)
 
 ### 捐赠(Donate)  
 你的馈赠将助力我更好的去贡献，谢谢！  
