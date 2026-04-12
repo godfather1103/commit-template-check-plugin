@@ -1,58 +1,61 @@
-# commit-template-check-plugin (The plugin in jetbrains IDEs)
+# Git Commit Template Check
 
-<h2>English Readme：</h2>
-<p>Create a commit message with the following template,It also provides the operation of checking the format of commit:</p>
+[![JetBrains Plugin](https://img.shields.io/badge/JetBrains%20IDEs-Plugin-blue.svg)](https://plugins.jetbrains.com/plugin/14822-git-commit-template-check/)
+[![Version](https://img.shields.io/jetbrains/plugin/v/14822?label=JetBrains%20Plugin)](https://plugins.jetbrains.com/plugin/14822-git-commit-template-check/)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/14822?label=Downloads)](https://plugins.jetbrains.com/plugin/14822-git-commit-template-check/)
+[![License](https://img.shields.io/github/license/godfather1103/commit-template-check-plugin?label=License)](LICENSE)
+[![History Versions](https://img.shields.io/badge/History%20Versions-blue)](https://github.com/godfather1103/commit-template-check-plugin/releases)
 
-<pre>
-&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
-&lt;BLANK LINE&gt;
-&lt;body&gt;
-&lt;BLANK LINE&gt;
-&lt;footer&gt;
-</pre>
+README: [English](README.md) | [中文](README_CN.md)
 
-<p>The plug-in is based on <a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a></p>
+---
 
-<h2>中文说明：</h2>
-<p>该插件可以按照如下模板去生成commit的内容，并提供了检测commit的格式的操作:</p>
+A JetBrains IDE plugin that helps you create standard commit messages and provides automatic formatting validation before committing.
 
-<pre>
-&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
-&lt;BLANK LINE&gt;
-&lt;body&gt;
-&lt;BLANK LINE&gt;
-&lt;footer&gt;
-</pre>
+### ✨ Features
 
-<p>该插件是在<a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>的基础上开发完成</p>
+- Generate commit messages using a standardized UI.
+- Automatically validate the format of your commit message to ensure repository cleanliness.
+- Based on the standard Angular commit template:
+    ```text
+    <type>(<scope>): <subject>
+    <BLANK LINE>
+    <body>
+    <BLANK LINE>
+    <footer>
+    ```
 
-### 赞助者(Sponsors)
-![IntelliJ IDEA](pic/jetbrains-100.png) ![IntelliJ IDEA](pic/intellij-idea-100.png)  
-感谢 [Jetbrains](https://www.jetbrains.com/?from=commit-template-check-plugin) 提供 [IntelliJ IDEA](https://www.jetbrains.com/idea/) 许可证！  
-Thanks to [Jetbrains](https://www.jetbrains.com/?from=commit-template-check-plugin) provided license for the [IntelliJ IDEA](https://www.jetbrains.com/?from=commit-template-check-plugin)!
+### 📦 Installation
 
-### 附录(Annex)
-commit-template-check-plugin:  
-[Plugin](https://plugins.jetbrains.com/plugin/14822-git-commit-template-check/)  
-[Github](https://github.com/godfather1103/commit-template-check-plugin)  
-[码云](https://gitee.com/godfather1103/commit-template-check-plugin)  
+1. Open your JetBrains IDE.
+2. Navigate to Preferences / Settings > Plugins > Marketplace.
+3. Search for `Git Commit Template Check` and install it.
+4. Restart your IDE.
 
-commit-template-idea-plugin:  
-[Plugin](https://plugins.jetbrains.com/plugin/9861-git-commit-template)  
-[Code](https://github.com/MobileTribe/commit-template-idea-plugin)  
+### 💖 Acknowledgments
 
-### 更新日志（Changelog）
-[点击这里(click here)](chengelog.md)
+This project would not be possible without the following foundations:
 
-### 捐赠(Donate)  
-你的馈赠将助力我更好的去贡献，谢谢！  
-Your gift will help me to contribute better, thank you!  
+- [Git Commit Template](https://github.com/MobileTribe/commit-template-idea-plugin): Special thanks to MobileTribe for the original plugin, This project was developed based on it.
+- [JetBrains](https://www.jetbrains.com): This project is developed using IntelliJ IDEA, thanks to the JetBrains Open Source License.
 
-[PayPal](https://paypal.me/godfather1103?locale.x=zh_XC)  
+### ☕ Support
 
-支付宝(Alipay)  
-![支付宝](pic/hb-300.png)
-![支付宝](pic/Alipay-300.png)
+Your gift will help me to contribute better, thank you!
 
-微信(WeChat)  
-![微信支付](pic/WeChat-300.png)
+- [PayPal](https://paypal.me/godfather1103?locale.x=zh_XC)
+- <details>
+  <summary><b>🇨🇳 WeChat / Alipay (Click)</b></summary>
+  <img src="pic/Alipay-300.png" width="200" alt="Alipay" />
+  <img src="pic/hb-300.png" width="200" alt="Alipay Hongbao" />	
+  <img src="pic/WeChat-300.png" width="200" alt="WeChat" />
+  </details>
+
+### License
+
+This project contains code derived from:
+
+- [Git Commit Template](https://github.com/MobileTribe/commit-template-idea-plugin)
+
+The original code remains under the [Apache License 2.0](licenses/LICENSE).
+All newly added code in this repository is licensed under the [MIT](LICENSE) License.
